@@ -1,0 +1,31 @@
+// echo.go
+
+package coreutils.echo
+
+import (
+	"os"
+	"flag"
+)
+
+var omitNewline = flag.Bool("n", false, "don't print final newline")
+
+const (
+	Space = " "
+	Newline = "\n"
+)
+
+/* Echo the arguments to Stdout. If -n is specified, omit a trailing newline.*/
+func main() {
+	flag.Parse()
+	var s string = ""
+	for i := 0; i < flag.NArg(); i++ {
+		if i > 0 {
+			s += Space
+		}
+		s += flag.Arg(i)
+	}
+	if !*omitNewline {
+		s += Newline
+	}
+	os.Stdout.WriteString(s)
+}
