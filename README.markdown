@@ -1,5 +1,5 @@
-gocoreutils README
-==================
+gocoreutils
+===========
 
 gocoreutils is intended as a base package of simple unix-like utilities,
 similar to [GNU coreutils](http://www.gnu.org/software/coreutils/) and
