@@ -1,10 +1,13 @@
 // ls.go
+// TODO: come back to this and fix it later
 
-package coreutils.ls
+package main
 
 import (
     "os"
+    "io"
     "flag"
+    "fmt"
 )
 
 var longList = flag.Bool("l", false, "use a long listing format")
@@ -16,38 +19,41 @@ func longListheader() string {
     return "NAME"
 }
 
+func closeAll(items []io.Closer) {
+    for i := 0; i < len(items); i++ {
+        items[i].Close()
+    }
+}
+
 func main() {
     flag.Parse()
     var c = flag.NArg()
-    var toScan [c + 1]os.File
+    bound := c + 1
+    var toScan [bound]os.File
     if c > 0 {
-        for i = 0; i < c; i++ {
-            toScan[i] = os.Open(flag.Arg(i), O_RDONLY, "0666")
+        for i := 0; i < c; i++ {
+            thing, err := os.Open(flag.Arg(i))
+            toScan[i] = thing
         }
+    } else {
+        thing, err := os.Open(".")
+        toScan[thing]
     }
-    else {
-        toScan[c] = os.Open(".", O_RDONLY, "0666")
-    }
-    defer for i = 0; i < len(toScan); i++ {
-        toScan[i].Close()
-    }
-    for i = 0; i < len(toScan); i++ {
+    defer closeAll(toScan)
+    for i := 0; i < len(toScan); i++ {
         if c > 0 {
-            os.Stdout.WriteLine("in" + toScan[i].Name)
+            fmt.Printf("in" + toScan[i].Name)
         }
         var items []string = toScan[i].Readdirnames(1 << 31)
-        defer for k = 0; k < len(items); k++ [
-            items[k].Close()
+        defer closeAll(items)
+        if *longList {
+            fmt.Printf(longListHeader())
         }
-        if longList {
-            os.Stdout.WriteLine(longListHeader())
-        }
-        for j = 0; j < len(items); j++ {
-            if longList {
-                os.Stdout.WriteLine(item.Name + "\n")
-            }
-            else {
-                os.Stdout.Write(item.Name + "\t")
+        for j := 0; j < len(items); j++ {
+            if *longList {
+                fmt.Printf(items[j].Name + "\n")
+            } else {
+                fmt.Printf(items[j].Name + "\t")
             }
         }
     }

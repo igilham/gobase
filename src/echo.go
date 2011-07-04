@@ -1,6 +1,6 @@
 // echo.go
 
-package coreutils.echo
+package main
 
 import (
     "os"
