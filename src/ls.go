@@ -5,57 +5,45 @@ package main
 
 import (
     "os"
-    "io"
     "flag"
     "fmt"
 )
 
-var longList = flag.Bool("l", false, "use a long listing format")
-var all = flag.Bool("a", false, "do not ignore entries starting with .")
-var almostAll = flag.Bool("A", false, "do not list implied . and ..")
-var ignoreBackups = flag.Bool("B", true, "do not list implied entries ending with ~")
+const (
+    colon = ":"
+    newline  = "\n"
+)
 
-func longListheader() string {
-    return "NAME"
-}
-
-func closeAll(items []io.Closer) {
-    for i := 0; i < len(items); i++ {
-        items[i].Close()
-    }
-}
-
+// list files - lists files in the current directory if no argument is given, 
+// or lists files in all directories specified as arguments
 func main() {
     flag.Parse()
-    var c = flag.NArg()
-    bound := c + 1
-    var toScan [bound]os.File
-    if c > 0 {
-        for i := 0; i < c; i++ {
-            thing, err := os.Open(flag.Arg(i))
-            toScan[i] = thing
-        }
+    if flag.NArg() == 0 {
+        list(".");
     } else {
-        thing, err := os.Open(".")
-        toScan[thing]
-    }
-    defer closeAll(toScan)
-    for i := 0; i < len(toScan); i++ {
-        if c > 0 {
-            fmt.Printf("in" + toScan[i].Name)
-        }
-        var items []string = toScan[i].Readdirnames(1 << 31)
-        defer closeAll(items)
-        if *longList {
-            fmt.Printf(longListHeader())
-        }
-        for j := 0; j < len(items); j++ {
-            if *longList {
-                fmt.Printf(items[j].Name + "\n")
-            } else {
-                fmt.Printf(items[j].Name + "\t")
+        for i := 0; i < flag.NArg(); i++ {
+            fmt.Printf(flag.Arg(i) + colon + newline)
+            list (flag.Arg(i))
+            if i < flag.NArg() - 1 {
+                fmt.Printf(newline)
             }
         }
+    }
+}
+
+func list(s string) {
+    file, err := os.Open(s)
+    if err != nil {
+        fmt.Printf("error accessing " + s)
+        os.Exit(1)
+    }
+    subfiles, err2 := file.Readdirnames(0)
+    if len(subfiles) == 0 && err2 != nil {
+        fmt.Printf("error accessing contents of " + s)
+        os.Exit(1)
+    }
+    for i := 0; i < len(subfiles); i++ {
+        fmt.Printf(subfiles[i] + newline)
     }
 }
 
