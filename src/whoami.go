@@ -16,9 +16,9 @@ const (
 func main() {
     flag.Parse()
     user, error := user.LookupId(os.Geteuid())
-    if (error == nil) {
-        fmt.Printf(user.Username + newline);
-    } else {
+    if (error != nil) {
         fmt.Printf(error.String() + newline)
+        os.Exit(1)
     }
+    fmt.Printf(user.Username + newline);
 }
