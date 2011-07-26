@@ -9,6 +9,7 @@ import (
     "time"
 )
 
+// Change file timestamps
 func main() {
     flag.Parse()
     for i := 0; i < flag.NArg(); i++ {

@@ -13,6 +13,7 @@ const (
     newline = "\n"
 )
 
+// Prints the effective user ID.
 func main() {
     flag.Parse()
     user, error := user.LookupId(os.Geteuid())
