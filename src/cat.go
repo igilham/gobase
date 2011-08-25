@@ -14,7 +14,9 @@ func cat(fd *os.File) {
     for {
         switch nr, er := fd.Read(buf[:]); true {
             case nr < 0:
-                fmt.Fprintf(os.Stderr, "cat: error reading from %s: %s\n", fd, er.String())
+                fmt.Fprintf(os.Stderr, 
+                    "cat: error reading from %s: %s\n",
+                    fd, er.String())
                 os.Exit(1)
             case nr == 0: // EOF
                 return
