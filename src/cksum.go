@@ -18,12 +18,20 @@ func main() {
             fmt.Printf("%d %d\n", h.Sum32(), h.Size())
         }
     } else {
+        supressName := true
+        if flag.NArg() > 1 {
+            supressName = false
+        }
         for i := 0; i < flag.NArg(); i++ {
             if fd, err := os.Open(flag.Arg(i)); err != nil {
                 fmt.Printf("error reading file %s\n", flag.Arg(i))
             } else {
                 if h := cksum(fd); h != nil {
-                    fmt.Printf("%d %d %s\n", h.Sum32(), h.Size(), fd.Name())
+                    if (supressName) {
+                        fmt.Printf("%d\n", h.Sum32())
+                    } else {
+                        fmt.Printf("%d %s\n", h.Sum32(), fd.Name())
+                    }
                 }
             }
         }
