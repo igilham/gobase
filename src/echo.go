@@ -1,5 +1,3 @@
-// echo.go
-
 package main
 
 import (
@@ -29,4 +27,3 @@ func main() {
     }
     os.Stdout.WriteString(s)
 }
-

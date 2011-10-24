@@ -1,5 +1,3 @@
-// whoami.go
-
 package main
 
 import (
@@ -9,16 +7,12 @@ import (
     "os/user"
 )
 
-const (
-    newline = "\n"
-)
-
 // Prints the effective user ID.
 func main() {
     flag.Parse()
     user, error := user.LookupId(os.Geteuid())
     if (error != nil) {
-        fmt.Printf(error.String() + newline)
+        fmt.Fprintf(os.Stderr, "whoami: %s\n", error.String())
         os.Exit(1)
     }
     fmt.Printf(user.Username + newline);

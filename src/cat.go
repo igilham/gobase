@@ -1,5 +1,3 @@
-// cat.go
-
 package main
 
 import (
@@ -46,4 +44,3 @@ func main() {
         cat(fd)
     }
 }
-

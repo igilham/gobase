@@ -1,5 +1,3 @@
-// cksum.go
-
 package main
 
 import (
@@ -24,7 +22,7 @@ func main() {
         }
         for i := 0; i < flag.NArg(); i++ {
             if fd, err := os.Open(flag.Arg(i)); err != nil {
-                fmt.Printf("error reading file %s\n", flag.Arg(i))
+                fmt.Fprintf(os.Stderr, "cksum: error reading file %s\n", flag.Arg(i))
             } else {
                 if h := cksum(fd); h != nil {
                     if (supressName) {
@@ -46,19 +44,17 @@ func cksum(fd *os.File) hash.Hash32 {
     for {
         switch nr, er := fd.Read(buf[:]); true {
         case nr < 0:
-            fmt.Printf("error reading from %s: %s\n", fd, er.String())
+            fmt.Fprintf(os.Stderr, "cksum: error reading from %s: %s\n", fd, er.String())
             return nil
         case nr == 0: // EOF
-            //fmt.Printf("%d %d %s\n", h.Sum32(), h.Size(), fd.Name())
             return h
         case nr > 0:
             _, ew := h.Write(buf[0:nr])
             if ew != nil {
-                fmt.Printf("error writing into hash buffer\n")
+                fmt.Fprintf(os.Stderr, "cksum: error writing into hash buffer\n")
                 return nil
             }
         }
     }
     return nil
 }
-

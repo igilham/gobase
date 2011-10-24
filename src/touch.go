@@ -1,5 +1,3 @@
-// touch.go
-
 package main
 
 import (
@@ -13,7 +11,7 @@ import (
 func main() {
     flag.Parse()
     if flag.NArg() == 0 {
-        fmt.Printf("touch: missing file operand\n")
+        fmt.Fprintf(os.Stderr, "touch: missing file operand\n")
         os.Exit(1)
     }
     for i := 0; i < flag.NArg(); i++ {
@@ -22,9 +20,8 @@ func main() {
         if err != nil {
             _, ew := os.Create(flag.Arg(i))
             if ew != nil {
-                fmt.Printf("touch: cannot create file %s\n", flag.Arg(i))
+                fmt.Fprintf(os.Stderr, "touch: cannot create file %s\n", flag.Arg(i))
             }
         }
     }
 }
-
