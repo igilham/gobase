@@ -22,9 +22,8 @@ func main() {
 	go writeToFile(Files[0], Channels[0])
 
 	for i := 0; i < flag.NArg(); i++ {
-		fmt.Printf("arg %s - %s\n", i, flag.Arg(i))
 		var err os.Error
-		Files[i], err = os.Create(flag.Arg(i))     // Opens the file
+		Files[i], err = os.Create(flag.Arg(i)) // Opens the file
 		if err != nil {
 			fmt.Fprintf(os.Stderr,
 				"tee: cannot create file - %s - %s\n",
@@ -34,7 +33,8 @@ func main() {
 		Channels[i] = make(chan []byte, CHBUF) // Makes the channel
 		go writeToFile(Files[i], Channels[i])  // Starts the writers
 	}
-SL:	for buffer := make([]byte, ARBUF);; { // SL stands for Send Loop
+SL:
+	for buffer := make([]byte, ARBUF); ; { // SL stands for Send Loop
 		_, ok := os.Stdin.Read(buffer)
 		for i := 0; i < len(Channels); i++ {
 			Channels[i] <- buffer
