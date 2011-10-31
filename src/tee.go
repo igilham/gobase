@@ -3,6 +3,7 @@ package main
 import (
 	"os"
 	"flag"
+	"fmt"
 )
 
 const (
@@ -20,8 +21,16 @@ func main() {
 	Channels[0] = make(chan []byte, CHBUF)
 	go writeToFile(Files[0], Channels[0])
 
-	for i := 1; i <= flag.NArg(); i++ {
-		Files[i], _ = os.Create(flag.Arg(i))     // Opens the file /*IT FAILS HERE!!! os.Create() returns os.ENOENT, which means 'no such file' */ 
+	for i := 0; i < flag.NArg(); i++ {
+		fmt.Printf("arg %s - %s\n", i, flag.Arg(i))
+		var err os.Error
+		Files[i], err = os.Create(flag.Arg(i))     // Opens the file
+		if err != nil {
+			fmt.Fprintf(os.Stderr,
+				"tee: cannot create file - %s - %s\n",
+				flag.Arg(i),
+				err.String())
+		}
 		Channels[i] = make(chan []byte, CHBUF) // Makes the channel
 		go writeToFile(Files[i], Channels[i])  // Starts the writers
 	}
