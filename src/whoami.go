@@ -15,5 +15,5 @@ func main() {
         fmt.Fprintf(os.Stderr, "whoami: %s\n", error.String())
         os.Exit(1)
     }
-    fmt.Printf(user.Username + newline);
+    fmt.Println(user.Username);
 }
