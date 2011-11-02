@@ -19,6 +19,7 @@ echo Building \
 && echo "(in src/ls)" gomake $1 && cd src/ls && gomake $1 && cd - > /dev/null \
 && echo "(in src/whoami)" gomake $1 && cd src/whoami && gomake $1 && cd - > /dev/null \
 && echo "(in src/mkdir)" gomake $1 && cd src/mkdir && gomake $1 && cd - > /dev/null \
+&& echo "(in src/tee)" gomake $1 && cd src/dirname && gomake $1 && cd - > /dev/null \
 
 fi
 
