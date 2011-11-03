@@ -13,7 +13,7 @@ func main() {
     flag.Parse()
     if flag.NArg() == 0 {
         if h := cksum(os.Stdin); h != nil {
-            fmt.Printf("%d %d\n", h.Sum32(), h.Size())
+            fmt.Println("%d %d", h.Sum32(), h.Size())
         }
     } else {
         supressName := true
@@ -22,13 +22,13 @@ func main() {
         }
         for i := 0; i < flag.NArg(); i++ {
             if fd, err := os.Open(flag.Arg(i)); err != nil {
-                fmt.Fprintf(os.Stderr, "cksum: error reading file %s\n", flag.Arg(i))
+                fmt.Fprintln(os.Stderr, "cksum: error reading file %s", flag.Arg(i))
             } else {
                 if h := cksum(fd); h != nil {
                     if (supressName) {
-                        fmt.Printf("%d\n", h.Sum32())
+                        fmt.Println("%d", h.Sum32())
                     } else {
-                        fmt.Printf("%d %s\n", h.Sum32(), fd.Name())
+                        fmt.Println("%d %s", h.Sum32(), fd.Name())
                     }
                 }
             }
@@ -44,14 +44,14 @@ func cksum(fd *os.File) hash.Hash32 {
     for {
         switch nr, er := fd.Read(buf[:]); true {
         case nr < 0:
-            fmt.Fprintf(os.Stderr, "cksum: error reading from %s: %s\n", fd, er.String())
+            fmt.Fprintln(os.Stderr, "cksum: error reading from %s: %s", fd, er.String())
             return nil
         case nr == 0: // EOF
             return h
         case nr > 0:
             _, ew := h.Write(buf[0:nr])
             if ew != nil {
-                fmt.Fprintf(os.Stderr, "cksum: error writing into hash buffer\n")
+                fmt.Fprintln(os.Stderr, "cksum: error writing into hash buffer")
                 return nil
             }
         }

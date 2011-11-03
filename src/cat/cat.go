@@ -12,15 +12,15 @@ func cat(fd *os.File) {
     for {
         switch nr, er := fd.Read(buf[:]); true {
             case nr < 0:
-                fmt.Fprintf(os.Stderr, 
-                    "cat: error reading from %s: %s\n",
+                fmt.Fprintln(os.Stderr, "cat: error reading from %s: %s",
                     fd, er.String())
                 os.Exit(1)
             case nr == 0: // EOF
                 return
             case nr > 0:
                 if nw, ew := os.Stdout.Write(buf[0:nr]); nw != nr {
-                    fmt.Fprintf(os.Stderr, "cat: error writing from %s: %s\n", fd, ew.String())
+                    fmt.Fprintln(os.Stderr, "cat: error writing from %s: %s", 
+						fd, ew.String())
                     os.Exit(1)
                 }
         }
@@ -37,7 +37,7 @@ func main() {
     for i := 0; i < flag.NArg(); i++ {
         fd, err := os.Open(flag.Arg(i))
         if fd == nil {
-            fmt.Fprintf(os.Stderr, "cat: can't open %s: error %s\n", flag.Arg(i), err)
+            fmt.Fprintln(os.Stderr, "cat: can't open %s: error %s", flag.Arg(i), err)
             os.Exit(1)
         }
         defer fd.Close()

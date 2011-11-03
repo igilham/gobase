@@ -17,10 +17,10 @@ func main() {
     flag.Parse()
     switch {
         case flag.NArg() == 0:
-            fmt.Fprintf(os.Stderr, "dirname: not enough arguments")
+            fmt.Fprintln(os.Stderr, "dirname: not enough arguments")
             os.Exit(1)
         case flag.NArg() > 1:
-            fmt.Fprintf(os.Stderr, "dirname: too many arguments")
+            fmt.Fprintln(os.Stderr, "dirname: too many arguments")
             os.Exit(1)
     }
     fmt.Println(dirname(flag.Arg(0)))

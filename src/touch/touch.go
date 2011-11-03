@@ -11,7 +11,7 @@ import (
 func main() {
     flag.Parse()
     if flag.NArg() == 0 {
-        fmt.Fprintf(os.Stderr, "touch: missing file operand\n")
+        fmt.Fprintln(os.Stderr, "touch: missing file operand")
         os.Exit(1)
     }
     for i := 0; i < flag.NArg(); i++ {
@@ -20,7 +20,7 @@ func main() {
         if err != nil {
             _, ew := os.Create(flag.Arg(i))
             if ew != nil {
-                fmt.Fprintf(os.Stderr, "touch: cannot create file %s\n", flag.Arg(i))
+                fmt.Fprintln(os.Stderr, "touch: cannot create file %s", flag.Arg(i))
             }
         }
     }

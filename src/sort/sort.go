@@ -21,8 +21,7 @@ func main() {
     } else {
 		for i := 0; i < flag.NArg(); i++ {
 			if file, err := os.Open(flag.Arg(i)); err != nil {
-				fmt.Fprintf(os.Stderr,
-					"sort: cannot open file %s\n",
+				fmt.Fprintln(os.Stderr, "sort: cannot open file %s",
 					flag.Arg(i))
 			} else {
 				getlines(file)

@@ -13,6 +13,8 @@ func main() {
 	flag.Parse()
 	for i := 0; i < flag.NArg(); i++ {
 		err := os.Mkdir(flag.Arg(i), uint32(*mode))
-		if err != nil { fmt.Fprintln(os.Stderr, err) }
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+		}
 	}
 }

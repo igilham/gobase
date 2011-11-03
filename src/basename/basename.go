@@ -14,10 +14,10 @@ func main() {
 	flag.Parse()
 	switch {
         case flag.NArg() == 0:
-            fmt.Fprintf(os.Stderr, "basename: not enough arguments")
+            fmt.Fprintln(os.Stderr, "basename: not enough arguments")
             os.Exit(1)
         case flag.NArg() > 1:
-            fmt.Fprintf(os.Stderr, "basename: too many arguments")
+            fmt.Fprintln(os.Stderr, "basename: too many arguments")
             os.Exit(1)
     }
     fmt.Println(basename(flag.Arg(0)))
@@ -34,12 +34,5 @@ func basename(s string) string {
 			return sep
 		}
 	}
-	/*for s != sep {
-		index := strings.Index(s, sep)
-		if index == -1 {
-			break
-		}
-		s = s[index+1:]
-	}*/
 	return s
 }

@@ -46,8 +46,8 @@ func main() {
 			Files[i], err = os.Create(flag.Arg(i-1))
 		}
 		if err != nil {
-			fmt.Fprintf(os.Stderr,
-				"tee: cannot create file - %s - %s\n",
+			fmt.Fprintln(os.Stderr,
+				"tee: cannot create file - %s - %s",
 				flag.Arg(i-1),
 				err.String())
 		}
