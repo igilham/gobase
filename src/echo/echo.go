@@ -1,8 +1,9 @@
 package main
 
 import (
-    "os"
-    "flag"
+	"flag"
+	"fmt"
+    "strings"
 )
 
 var omitNewline = flag.Bool("n", false, "don't print final newline")
@@ -15,15 +16,9 @@ const (
 /* Echo the arguments to Stdout. If -n is specified, omit a trailing newline.*/
 func main() {
     flag.Parse()
-    var s string = ""
-    for i := 0; i < flag.NArg(); i++ {
-        if i > 0 {
-            s += Space
-        }
-        s += flag.Arg(i)
-    }
+    s := strings.Join(flag.Args(), Space)
     if !*omitNewline {
         s += Newline
     }
-    os.Stdout.WriteString(s)
+    fmt.Printf(s)
 }
