@@ -15,13 +15,19 @@ func main() {
         os.Exit(1)
     }
     for i := 0; i < flag.NArg(); i++ {
-        now := time.Nanoseconds()
-        err := os.Chtimes(flag.Arg(i), now, now)
-        if err != nil {
-            _, ew := os.Create(flag.Arg(i))
-            if ew != nil {
-                fmt.Fprintln(os.Stderr, "touch: cannot create file %s", flag.Arg(i))
-            }
-        }
+		er := Touch(flag.Arg(i))
+		if er != nil {
+			fmt.Fprintln(os.Stderr, "touch: cannot create file %s", flag.Arg(i))
+		}
     }
+}
+
+func Touch(path string) os.Error {
+	now := time.Nanoseconds()
+	er := os.Chtimes(path, now, now)
+	if er != nil {
+		_, ew := os.Create(path)
+		return ew
+	}
+	return nil
 }
