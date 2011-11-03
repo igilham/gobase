@@ -16,23 +16,13 @@ echo Building \
 && echo "(in src/ls)" gomake $1 && cd src/ls && gomake $1 && cd - > /dev/null \
 && echo "(in src/whoami)" gomake $1 && cd src/whoami && gomake $1 && cd - > /dev/null \
 && echo "(in src/mkdir)" gomake $1 && cd src/mkdir && gomake $1 && cd - > /dev/null \
+&& echo "(in src/tee)" gomake $1 && cd src/dirname && gomake $1 && cd - > /dev/null \
+&& echo "(in src/tee)" gomake $1 && cd src/basename && gomake $1 && cd - > /dev/null \
 && echo "(in src/tee)" gomake $1 && cd src/tee && gomake $1 && cd - > /dev/null \
 && echo "(in src/cksum)" gomake $1 && cd src/cksum && gomake $1 && cd - > /dev/null \
 && echo "(in src/touch)" gomake $1 && cd src/touch && gomake $1 && cd - > /dev/null \
 && echo "(in src/cat)" gomake $1 && cd src/cat && gomake $1 && cd - > /dev/null \
-<<<<<<< local
-=======
-&& echo "(in src/true)" gomake $1 && cd src/true && gomake $1 && cd - > /dev/null \
-&& echo "(in src/sleep)" gomake $1 && cd src/sleep && gomake $1 && cd - > /dev/null \
-&& echo "(in src/sort)" gomake $1 && cd src/sort && gomake $1 && cd - > /dev/null \
-&& echo "(in src/false)" gomake $1 && cd src/false && gomake $1 && cd - > /dev/null \
-&& echo "(in src/echo)" gomake $1 && cd src/echo && gomake $1 && cd - > /dev/null \
-&& echo "(in src/ls)" gomake $1 && cd src/ls && gomake $1 && cd - > /dev/null \
-&& echo "(in src/whoami)" gomake $1 && cd src/whoami && gomake $1 && cd - > /dev/null \
-&& echo "(in src/mkdir)" gomake $1 && cd src/mkdir && gomake $1 && cd - > /dev/null \
-&& echo "(in src/tee)" gomake $1 && cd src/dirname && gomake $1 && cd - > /dev/null \
-&& echo "(in src/tee)" gomake $1 && cd src/basename && gomake $1 && cd - > /dev/null \
->>>>>>> other
+&& echo "(in src/cat)" gomake $1 && cd src/pwd && gomake $1 && cd - > /dev/null \
 
 fi
 
