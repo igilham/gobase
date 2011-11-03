@@ -11,20 +11,19 @@ import (
 
 var reverse = flag.Bool("r", false, "reverse sort order")
 
-var lines []string
-
 // sort input lines
 func main() {
 	flag.Parse()
+	var lines []string
     if flag.NArg() == 0 {
-		getlines(os.Stdin)
+		lines = getlines(os.Stdin)
     } else {
 		for i := 0; i < flag.NArg(); i++ {
-			if file, err := os.Open(flag.Arg(i)); err != nil {
-				fmt.Fprintln(os.Stderr, "sort: cannot open file %s",
-					flag.Arg(i))
+			file, err := os.Open(flag.Arg(i))
+			if err != nil {
+				fmt.Fprintln(os.Stderr, "sort: cannot open file %s", flag.Arg(i))
 			} else {
-				getlines(file)
+				lines = getlines(file)
 			}
 		}
     }
@@ -34,12 +33,13 @@ func main() {
 	}
 }
 
-func getlines(file *os.File) {
+func getlines(file *os.File) ([]string) {
+	var lines []string
 	var part []byte
 	var	prefix bool
 	var err os.Error
 	reader := bufio.NewReader(file)
-	buffer := bytes.NewBuffer(make([]byte, 1024))
+	buffer := bytes.NewBuffer(make([]byte, 4096))
 	for {
 		if part, prefix, err = reader.ReadLine(); err != nil {
 			break
@@ -50,6 +50,7 @@ func getlines(file *os.File) {
 			buffer.Reset()
 		}
 	}
+	return lines
 }
 
 func out(list []string) {

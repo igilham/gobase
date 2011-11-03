@@ -36,11 +36,11 @@ func main() {
     }
     for i := 0; i < flag.NArg(); i++ {
         fd, err := os.Open(flag.Arg(i))
-        if fd == nil {
-            fmt.Fprintln(os.Stderr, "cat: can't open %s: error %s", flag.Arg(i), err)
+        defer fd.Close()
+        if err != nil {
+            fmt.Fprintln(os.Stderr, "cat: can't open %s: %s", flag.Arg(i), err)
             os.Exit(1)
         }
-        defer fd.Close()
         cat(fd)
     }
 }
