@@ -8,6 +8,7 @@ echo Running goinstall \
 else
 echo Building \
 && echo "(in src/true)" gomake $1 && cd src/true && gomake $1 && cd - > /dev/null \
+&& echo "(in src/rm)" gomake $1 && cd src/rm && gomake $1 && cd - > /dev/null \
 && echo "(in src/sleep)" gomake $1 && cd src/sleep && gomake $1 && cd - > /dev/null \
 && echo "(in src/sort)" gomake $1 && cd src/sort && gomake $1 && cd - > /dev/null \
 && echo "(in src/false)" gomake $1 && cd src/false && gomake $1 && cd - > /dev/null \
