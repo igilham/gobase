@@ -1,12 +1,14 @@
-package main
+package gobase
 
-import "testing"
+import (
+	"testing"
+)
 
 type dirnameTest struct {
 	in, out string
 }
 
-var cases = []dirnameTest{
+var dirnameCases = []dirnameTest{
 	dirnameTest{"", "."},
 	dirnameTest{".", "."},
 	dirnameTest{"..", "."},
@@ -19,8 +21,8 @@ var cases = []dirnameTest{
 }
 
 func TestDirname(t *testing.T) {
-	for _, dt := range cases {
-		v := dirname(dt.in)
+	for _, dt := range dirnameCases {
+		v := Dirname(dt.in)
 		if v != dt.out {
 			t.Errorf("dirname(%s) = %s - expected %s", dt.in, v, dt.out)
 		}

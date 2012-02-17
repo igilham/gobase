@@ -1,5 +1,5 @@
 syntax: glob
-src/*/*.6
-src/*/6.out
 .project
-bin/*
+bin
+_bin
+_obj

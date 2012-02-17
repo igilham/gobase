@@ -1,4 +1,4 @@
-package main
+package gobase
 
 import (
 	"testing"
@@ -10,13 +10,8 @@ const sleepTime int64 = 500 * int64(1e6)
 
 var path string = os.TempDir() + "/touch_test.dat"
 
-func exist(s string) bool {
-	fi, _ := os.Stat(s)
-	return fi != nil
-}
-
 func removeIfPresent(s string) os.Error {
-	if exist(s) {
+	if FileExists(s) {
 		return os.Remove(s)
 	}
 	return nil
@@ -25,14 +20,14 @@ func removeIfPresent(s string) os.Error {
 func TestTouchCreatesNewFile(t *testing.T) {
 	removeIfPresent(path)
 	Touch(path)
-	if !exist(path) {
+	if !FileExists(path) {
 		t.Errorf("file not created %s", path)
 	}
 	removeIfPresent(path)
 }
 
 func TestTouchUpdatesTimestamp(t *testing.T) {
-	if !exist(path) {
+	if !FileExists(path) {
 		Touch(path)
 	}
 	before, _ := os.Stat(path)

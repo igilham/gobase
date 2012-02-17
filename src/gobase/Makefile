@@ -3,9 +3,9 @@
 
 include $(GOROOT)/src/Make.inc
 
-TARG=mkdir
+TARG=gobase
 GOFILES=\
-	mkdir.go\
+	gobase.go\
 
 # gb: this is the local install
 GBROOT=../..
@@ -13,20 +13,19 @@ GBROOT=../..
 # gb: compile/link against local install
 GCIMPORTS+= -I $(GBROOT)/_obj
 LDIMPORTS+= -L $(GBROOT)/_obj
+
 # gb: compile/link against GOPATH entries
 GOPATHSEP=:
 ifeq ($(GOHOSTOS),windows)
 GOPATHSEP=;
 endif
-GCIMPORTS=-I $(subst $(GOPATHSEP),/pkg/$(GOOS)_$(GOARCH) -I , $(GOPATH))/pkg/$(GOOS)_$(GOARCH)
-LDIMPORTS=-L $(subst $(GOPATHSEP),/pkg/$(GOOS)_$(GOARCH) -L , $(GOPATH))/pkg/$(GOOS)_$(GOARCH)
-
-# gb: default target is in GBROOT this way
-command:
-
-include $(GOROOT)/src/Make.cmd
+GCIMPORTS+=-I $(subst $(GOPATHSEP),/pkg/$(GOOS)_$(GOARCH) -I , $(GOPATH))/pkg/$(GOOS)_$(GOARCH)
+LDIMPORTS+=-L $(subst $(GOPATHSEP),/pkg/$(GOOS)_$(GOARCH) -L , $(GOPATH))/pkg/$(GOOS)_$(GOARCH)
 
 # gb: copy to local install
-$(GBROOT)/bin/$(TARG): $(TARG)
+$(GBROOT)/_obj/$(TARG).a: _obj/$(TARG).a
 	mkdir -p $(dir $@); cp -f $< $@
-command: $(GBROOT)/bin/$(TARG)
+
+package: $(GBROOT)/_obj/$(TARG).a
+
+include $(GOROOT)/src/Make.pkg

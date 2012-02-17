@@ -11,7 +11,7 @@ Building
 --------
 
 In order to build **gocoreutils**, just run `./build` from the project's root folder,
-then copy bin folder wherever you want :)
+then copy _bin folder wherever you want :)
 
 The build script is built using Go-GB, so if you have it installed, simply run
 `gb -pi /path/to/gocoreutils/src`

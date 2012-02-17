@@ -4,7 +4,7 @@ import (
     "flag"
     "fmt"
     "os"
-    "time"
+    . "gobase"
 )
 
 // Change file timestamps or create files that don't already exist
@@ -20,14 +20,4 @@ func main() {
 			fmt.Fprintln(os.Stderr, "touch: cannot create file %s", flag.Arg(i))
 		}
     }
-}
-
-func Touch(path string) os.Error {
-	now := time.Nanoseconds()
-	er := os.Chtimes(path, now, now)
-	if er != nil {
-		_, ew := os.Create(path)
-		return ew
-	}
-	return nil
 }

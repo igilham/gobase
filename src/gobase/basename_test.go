@@ -1,12 +1,14 @@
-package main
+package gobase
 
-import "testing"
+import (
+	"testing"
+)
 
 type basenameTest struct {
 	in, out string
 }
 
-var cases = []basenameTest{
+var basenameCases = []basenameTest{
 	//basenameTest{"", ""},
 	basenameTest{".", "."},
 	basenameTest{"..", ".."},
@@ -20,8 +22,8 @@ var cases = []basenameTest{
 }
 
 func TestBasename(t *testing.T) {
-	for _, dt := range cases {
-		v := basename(dt.in)
+	for _, dt := range basenameCases {
+		v := Basename(dt.in)
 		if v != dt.out {
 			t.Errorf("basename(%s) = %s - expected %s", dt.in, v, dt.out)
 		}
