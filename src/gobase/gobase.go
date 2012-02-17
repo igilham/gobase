@@ -13,6 +13,7 @@ import (
 const (
 	cwd string = "."
 	sep = string(os.PathSeparator)
+	buf_size = 4096
 )
 
 // strip the non-directory suffix from a filename
@@ -101,7 +102,7 @@ func Head(file *os.File, n int) ([]string) {
 	var	prefix bool
 	var err os.Error
 	reader := bufio.NewReader(file)
-	buffer := bytes.NewBuffer(make([]byte, 4096))
+	buffer := bytes.NewBuffer(make([]byte, buf_size))
 	for n != len(lines) {
 		if part, prefix, err = reader.ReadLine(); err != nil {
 			break
