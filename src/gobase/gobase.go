@@ -1,6 +1,8 @@
 package gobase
 
 import (
+	"hash"
+	"hash/crc32"
 	"os"
 	"strings"
 	"time"
@@ -45,6 +47,29 @@ func Cat(fd *os.File) os.Error {
     return nil
 }
 
+// checksum a file
+func Cksum(fd *os.File) (hash.Hash32, os.Error) {
+    table := crc32.MakeTable(crc32.Castagnoli)
+    h := crc32.New(table)
+    const NBUF = 512
+    var buf [NBUF]byte
+    for {
+        switch nr, er := fd.Read(buf[:]); true {
+        case nr < 0:
+            return nil, os.NewError("error reading from " + fd.Name() + " : " + er.String())
+        case nr == 0: // EOF
+            break
+        case nr > 0:
+            _, ew := h.Write(buf[0:nr])
+            if ew != nil {
+                return nil, os.NewError("error writing into hash buffer")
+            }
+        }
+    }
+    return h, nil
+}
+
+// strip the filename from a directory
 func Dirname (s string) string {
     if s == sep {
         return s
