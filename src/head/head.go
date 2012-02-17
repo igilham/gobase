@@ -15,7 +15,9 @@ func main() {
 		head(os.Stdin, *lines)
 	} else {
 		for i, arg := range flag.Args() {
-			if f, err := os.Open(arg); err != nil {
+			f, err := os.Open(arg)
+			defer f.Close()
+			if err != nil {
 				fmt.Fprintln(os.Stderr, "head: cannot open file %s", arg)
 			} else {
 				head(f, *lines)

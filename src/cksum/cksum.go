@@ -20,7 +20,9 @@ func main() {
             suppressName = false
         }
         for i := 0; i < flag.NArg(); i++ {
-            if fd, err := os.Open(flag.Arg(i)); err != nil {
+			fd, err := os.Open(flag.Arg(i))
+			defer fd.Close()
+            if err != nil {
                 fmt.Fprintln(os.Stderr, "cksum: error reading file %s", flag.Arg(i))
             } else {
 				h, e := Cksum(fd)
