@@ -1,6 +1,8 @@
 package gobase
 
 import (
+	"bytes"
+	"bufio"
 	"hash"
 	"hash/crc32"
 	"os"
@@ -91,6 +93,26 @@ func Dirname (s string) string {
 func FileExists(path string) bool {
 	fi, _ := os.Stat(path)
 	return fi != nil
+}
+
+func Head(file *os.File, n int) ([]string) {
+	var lines []string
+	var part []byte
+	var	prefix bool
+	var err os.Error
+	reader := bufio.NewReader(file)
+	buffer := bytes.NewBuffer(make([]byte, 4096))
+	for n != len(lines) {
+		if part, prefix, err = reader.ReadLine(); err != nil {
+			break
+		}
+		buffer.Write(part)
+		if !prefix {
+			lines = append(lines, buffer.String())
+			buffer.Reset()
+		}
+	}
+	return lines
 }
 
 func Touch(path string) os.Error {
