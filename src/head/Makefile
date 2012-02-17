@@ -31,3 +31,7 @@ include $(GOROOT)/src/Make.cmd
 $(GBROOT)/_bin/$(TARG): $(TARG)
 	mkdir -p $(dir $@); cp -f $< $@
 command: $(GBROOT)/_bin/$(TARG)
+
+# gb: local dependencies
+$(TARG): $(GBROOT)/_obj/gobase.a
+

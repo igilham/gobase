@@ -8,12 +8,12 @@ echo Running goinstall \
 else
 echo Building \
 && echo "(in src/ls)" gomake $1 && cd src/ls && gomake $1 && cd - > /dev/null \
+&& echo "(in src/gobase)" gomake $1 && cd src/gobase && gomake $1 && cd - > /dev/null \
 && echo "(in src/head)" gomake $1 && cd src/head && gomake $1 && cd - > /dev/null \
 && echo "(in src/whoami)" gomake $1 && cd src/whoami && gomake $1 && cd - > /dev/null \
 && echo "(in src/mkdir)" gomake $1 && cd src/mkdir && gomake $1 && cd - > /dev/null \
 && echo "(in src/tee)" gomake $1 && cd src/tee && gomake $1 && cd - > /dev/null \
 && echo "(in src/cksum)" gomake $1 && cd src/cksum && gomake $1 && cd - > /dev/null \
-&& echo "(in src/gobase)" gomake $1 && cd src/gobase && gomake $1 && cd - > /dev/null \
 && echo "(in src/touch)" gomake $1 && cd src/touch && gomake $1 && cd - > /dev/null \
 && echo "(in src/cat)" gomake $1 && cd src/cat && gomake $1 && cd - > /dev/null \
 && echo "(in src/pwd)" gomake $1 && cd src/pwd && gomake $1 && cd - > /dev/null \
