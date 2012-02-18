@@ -1,16 +1,16 @@
 package main
 
 import (
-	"os"
 	"flag"
 	"fmt"
+	"io"
+	"os"
 )
 
 const (
 	ARBUF = 512 // Arrays buffer size
 	CHBUF = 1   // Channels buffer size
 )
-
 
 //var buffer []byte
 var dontCreate = flag.Bool("a", false, "Append the output to the files, instead of overwrite it")
@@ -26,13 +26,13 @@ func main() {
 	go writeToFile(Files[0], Channels[0])
 
 	for i := 1; i < len(Files); i++ {
-		var err os.Error
+		var err error
 		if *dontCreate {
 			Files[i], err = os.OpenFile(flag.Arg(i-1), os.O_APPEND, 0664)
 			if err != nil {
-				if err == os.ENOENT {
-					var nerr os.Error
-					Files[i], nerr = os.Create(flag.Arg(i-1))
+				if err == os.ErrNotExist {
+					var nerr error
+					Files[i], nerr = os.Create(flag.Arg(i - 1))
 					if nerr != nil {
 						fmt.Fprintln(os.Stderr, nerr)
 						os.Exit(1)
@@ -43,13 +43,13 @@ func main() {
 				}
 			}
 		} else {
-			Files[i], err = os.Create(flag.Arg(i-1))
+			Files[i], err = os.Create(flag.Arg(i - 1))
 		}
 		if err != nil {
 			fmt.Fprintln(os.Stderr,
 				"tee: cannot create file - %s - %s",
 				flag.Arg(i-1),
-				err.String())
+				err.Error())
 		}
 		Channels[i] = make(chan []byte, CHBUF) // Makes the channel
 		go writeToFile(Files[i], Channels[i])  // Starts the writers
@@ -60,7 +60,7 @@ SL:
 		for i := 0; i < len(Channels); i++ {
 			Channels[i] <- buffer[:end]
 		}
-		if ok == os.EOF {
+		if ok == io.EOF {
 			for i := 0; i < len(Channels); i++ {
 				close(Channels[i])
 			}

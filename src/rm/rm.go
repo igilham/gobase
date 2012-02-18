@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"os"
@@ -23,15 +24,15 @@ func main() {
 	os.Exit(exitCode)
 }
 
-func rm(path string) os.Error {
+func rm(path string) error {
 	info, er := os.Lstat(path)
 	switch {
-		case er != nil:
-			return er
-		case info.IsDirectory():
-			return os.NewError(path + " is a directory")
-		default:
-			return os.Remove(path)
+	case er != nil:
+		return er
+	case info.IsDir():
+		return errors.New(path + " is a directory")
+	default:
+		return os.Remove(path)
 	}
 	return nil
 }

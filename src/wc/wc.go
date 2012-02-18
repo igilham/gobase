@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
+	"../gobase"
 	"os"
-	"gobase"
 )
 
 var (
@@ -48,7 +48,7 @@ func output(wc gobase.WordCount, name string) {
 		!(*countWords && *countChars) &&
 		(*countLines || *countWords || *countBytes || *countChars)
 	format := " %5d"
-	if (oneFlag) {
+	if oneFlag {
 		format = "%d"
 	}
 	if *countLines || noFlags {

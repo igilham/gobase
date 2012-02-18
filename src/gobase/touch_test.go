@@ -1,8 +1,8 @@
 package gobase
 
 import (
-	"testing"
 	"os"
+	"testing"
 	"time"
 )
 
@@ -10,7 +10,7 @@ const sleepTime int64 = 500 * int64(1e6)
 
 var path string = os.TempDir() + "/touch_test.dat"
 
-func removeIfPresent(s string) os.Error {
+func removeIfPresent(s string) error {
 	if FileExists(s) {
 		return os.Remove(s)
 	}
@@ -40,7 +40,7 @@ func TestTouchUpdatesTimestamp(t *testing.T) {
 	if before.Atime_ns >= after.Atime_ns {
 		t.Errorf("access time not updated")
 	}
-	if before.Mtime_ns >= after.Mtime_ns {
+	if before.ModTime() >= after.ModTime() {
 		t.Errorf("modified time not updated")
 	}
 	removeIfPresent(path)

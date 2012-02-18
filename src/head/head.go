@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
+	"../gobase"
 	"os"
-	"gobase"
 )
 
 var lines = flag.Int("n", 10, "number of lines to print")
@@ -22,7 +22,7 @@ func main() {
 			} else {
 				head(f, *lines)
 			}
-			if i < flag.NArg() - 1 {
+			if i < flag.NArg()-1 {
 				fmt.Println()
 			}
 		}

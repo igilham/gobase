@@ -3,9 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
+	"../gobase"
 	"os"
 	"sort"
-	"gobase"
 )
 
 var reverse = flag.Bool("r", false, "reverse sort order")
@@ -14,9 +14,9 @@ var reverse = flag.Bool("r", false, "reverse sort order")
 func main() {
 	flag.Parse()
 	var lines []string
-    if flag.NArg() == 0 {
+	if flag.NArg() == 0 {
 		lines = gobase.Head(os.Stdin, 0)
-    } else {
+	} else {
 		for i := 0; i < flag.NArg(); i++ {
 			file, err := os.Open(flag.Arg(i))
 			if err != nil {
@@ -25,8 +25,8 @@ func main() {
 				lines = gobase.Head(file, 0)
 			}
 		}
-    }
-    if len(lines) > 0 {
+	}
+	if len(lines) > 0 {
 		sort.Strings(lines)
 		out(lines)
 	}
@@ -35,8 +35,8 @@ func main() {
 func out(list []string) {
 	var (
 		start int64 = 0
-		end int64 = int64(len(list))
-		step int64 = 1
+		end   int64 = int64(len(list))
+		step  int64 = 1
 	)
 	if *reverse {
 		step = -1
