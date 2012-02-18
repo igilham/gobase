@@ -41,18 +41,27 @@ func wc(fd *os.File) {
 
 func output(wc gobase.WordCount, name string) {
 	noFlags := !*countLines && !*countWords && !*countBytes && !*countChars
-	
+	oneFlag := !(*countLines && *countWords) &&
+		!(*countLines && *countBytes) &&
+		!(*countLines && *countChars) &&
+		!(*countWords && *countBytes) &&
+		!(*countWords && *countChars) &&
+		(*countLines || *countWords || *countBytes || *countChars)
+	format := " %5d"
+	if (oneFlag) {
+		format = "%d"
+	}
 	if *countLines || noFlags {
-		fmt.Printf(" %5d", wc.Lines)
+		fmt.Printf(format, wc.Lines)
 	}
 	if *countWords || noFlags {
-		fmt.Printf(" %5d", wc.Words)
+		fmt.Printf(format, wc.Words)
 	}
 	if *countBytes || noFlags {
-		fmt.Printf(" %5d", wc.Bytes)
+		fmt.Printf(format, wc.Bytes)
 	}
 	if *countChars {
-		fmt.Printf(" %5d", wc.Chars)
+		fmt.Printf(format, wc.Chars)
 	}
 	fmt.Printf(" %s\n", name)
 }
