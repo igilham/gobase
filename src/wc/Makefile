@@ -3,9 +3,9 @@
 
 include $(GOROOT)/src/Make.inc
 
-TARG=sort
+TARG=wc
 GOFILES=\
-	sort.go\
+	wc.go\
 
 # gb: this is the local install
 GBROOT=../..
