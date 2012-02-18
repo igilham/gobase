@@ -1,12 +1,11 @@
 package main
 
 import (
-	"bufio"
-	"bytes"
 	"flag"
 	"fmt"
 	"os"
 	"sort"
+	"gobase"
 )
 
 var reverse = flag.Bool("r", false, "reverse sort order")
@@ -16,14 +15,14 @@ func main() {
 	flag.Parse()
 	var lines []string
     if flag.NArg() == 0 {
-		lines = getlines(os.Stdin)
+		lines = gobase.Head(os.Stdin, 0)
     } else {
 		for i := 0; i < flag.NArg(); i++ {
 			file, err := os.Open(flag.Arg(i))
 			if err != nil {
-				fmt.Fprintln(os.Stderr, "sort: cannot open file %s", flag.Arg(i))
+				fmt.Fprintln(os.Stderr, "sort: cannot open file ", flag.Arg(i))
 			} else {
-				lines = getlines(file)
+				lines = gobase.Head(file, 0)
 			}
 		}
     }
@@ -31,26 +30,6 @@ func main() {
 		sort.Strings(lines)
 		out(lines)
 	}
-}
-
-func getlines(file *os.File) ([]string) {
-	var lines []string
-	var part []byte
-	var	prefix bool
-	var err os.Error
-	reader := bufio.NewReader(file)
-	buffer := bytes.NewBuffer(make([]byte, 4096))
-	for {
-		if part, prefix, err = reader.ReadLine(); err != nil {
-			break
-		}
-		buffer.Write(part)
-		if !prefix {
-			lines = append(lines, buffer.String())
-			buffer.Reset()
-		}
-	}
-	return lines
 }
 
 func out(list []string) {

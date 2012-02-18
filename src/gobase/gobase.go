@@ -8,15 +8,21 @@ import (
 	"os"
 	"strings"
 	"time"
+	"utf8"
 )
 
 const (
 	cwd string = "."
 	sep = string(os.PathSeparator)
+	newline = '\n'
 	buf_size = 4096
 )
 
-// strip the non-directory suffix from a filename
+var (
+	whiteSpaceChars = []byte{9, 10, 11, 12, 13, 32}
+)
+
+// Basename strips the non-directory suffix from a filename.
 func Basename(s string) string {
 	arr := strings.Split(s, sep)
 	for i := len(arr) - 1; i >= 0; i-- {
@@ -31,7 +37,7 @@ func Basename(s string) string {
 	return s
 }
 
-// concatenate files
+// Cat concatenate files.
 func Cat(fd *os.File) os.Error {
     const NBUF = 512
     var buf [NBUF]byte
@@ -50,7 +56,7 @@ func Cat(fd *os.File) os.Error {
     return nil
 }
 
-// checksum a file
+// Cksum calculates a simple checksum for a file. Currently uses crc32.
 func Cksum(fd *os.File) (hash.Hash32, os.Error) {
     table := crc32.MakeTable(crc32.Castagnoli)
     h := crc32.New(table)
@@ -72,7 +78,7 @@ func Cksum(fd *os.File) (hash.Hash32, os.Error) {
     return h, nil
 }
 
-// strip the filename from a directory
+// Dirname strips the filename from a directory path.
 func Dirname (s string) string {
     if s == sep {
         return s
@@ -91,11 +97,13 @@ func Dirname (s string) string {
     return strings.TrimRight(s, sep)
 }
 
+// FileExists returns true if path points to an existing file.
 func FileExists(path string) bool {
 	fi, _ := os.Stat(path)
 	return fi != nil
 }
-
+// Head gets the first n lines of a file. If n == 0, then attempt to get all 
+// the lines.
 func Head(file *os.File, n int) ([]string) {
 	var lines []string
 	var part []byte
@@ -103,7 +111,7 @@ func Head(file *os.File, n int) ([]string) {
 	var err os.Error
 	reader := bufio.NewReader(file)
 	buffer := bytes.NewBuffer(make([]byte, buf_size))
-	for n != len(lines) {
+	for n != len(lines) || n == 0 {
 		if part, prefix, err = reader.ReadLine(); err != nil {
 			break
 		}
@@ -116,6 +124,8 @@ func Head(file *os.File, n int) ([]string) {
 	return lines
 }
 
+// Touch updates the access and modify times of a file, or creates a new
+// file if it doesn't already exist.
 func Touch(path string) os.Error {
 	now := time.Nanoseconds()
 	er := os.Chtimes(path, now, now)
@@ -124,4 +134,56 @@ func Touch(path string) os.Error {
 		return ew
 	}
 	return nil
+}
+
+// WordCount contains the counts calculated by the Wc algorithm.
+type WordCount struct {
+	Bytes uint64
+	Chars uint64
+	Words uint64
+	Lines uint64
+}
+
+// utf8Point determines if a byte is a valid UTF8 code point. Copied
+// from sbase/wc.c (suckless.org).
+func utf8Point(c byte) bool {
+	return c & 0xc0 != utf8.RuneSelf
+}
+
+// isSpace determines if a byte contains a space character.
+func isSpace(c byte) bool {
+	for _, b := range whiteSpaceChars {
+		if c == b {
+			return true
+		}
+	}
+	return false
+}
+
+// Wc counts the lines, words, bytes and characters in a file.
+func Wc(fd *os.File) (WordCount, os.Error) {
+	reader := bufio.NewReader(fd)
+	wc := WordCount{0, 0, 0, 0}
+	word := false
+	var c byte
+	var e os.Error
+	for c, e = reader.ReadByte(); e == nil; c, e = reader.ReadByte() {
+		wc.Bytes++
+		if utf8Point(c) {
+			wc.Chars++
+		}
+		if c == newline {
+			wc.Lines++
+		}
+		if !isSpace(c) {
+			word = true
+		} else if word {
+			word = false
+			wc.Words++
+		}
+	}
+	if e == os.EOF {
+		return wc, nil
+	}
+	return wc, e
 }

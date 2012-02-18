@@ -30,12 +30,12 @@ func main() {
 func list(s string) {
     file, err := os.Open(s)
     if err != nil {
-        fmt.Fprintln(os.Stderr, "ls: error accessing %s", s)
+        fmt.Fprintln(os.Stderr, "ls: error accessing ", s)
         os.Exit(1)
     }
     subfiles, err2 := file.Readdirnames(0)
     if len(subfiles) == 0 && err2 != nil {
-        fmt.Fprintln(os.Stderr, "ls: error accessing contents of %s", s)
+        fmt.Fprintln(os.Stderr, "ls: error accessing contents of ", s)
         os.Exit(1)
     }
     for i := 0; i < len(subfiles); i++ {

@@ -12,7 +12,7 @@ func main() {
     flag.Parse()
     user, error := user.LookupId(os.Geteuid())
     if (error != nil) {
-        fmt.Fprintln(os.Stderr, "whoami: %s", error.String())
+        fmt.Fprintln(os.Stderr, "whoami: ", error)
         os.Exit(1)
     }
     fmt.Println(user.Username);

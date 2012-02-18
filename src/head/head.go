@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	. "gobase"
+	"gobase"
 )
 
 var lines = flag.Int("n", 10, "number of lines to print")
@@ -18,7 +18,7 @@ func main() {
 			f, err := os.Open(arg)
 			defer f.Close()
 			if err != nil {
-				fmt.Fprintln(os.Stderr, "head: cannot open file %s", arg)
+				fmt.Fprintln(os.Stderr, "head: cannot open file ", arg)
 			} else {
 				head(f, *lines)
 			}
@@ -30,7 +30,7 @@ func main() {
 }
 
 func head(f *os.File, n int) {
-	for _, s := range Head(f, n) {
+	for _, s := range gobase.Head(f, n) {
 		fmt.Println(s)
 	}
 }

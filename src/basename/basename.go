@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	. "gobase"
+	"gobase"
 )
 
 // strip directory from filenames
@@ -18,5 +18,5 @@ func main() {
             fmt.Fprintln(os.Stderr, "basename: too many arguments")
             os.Exit(1)
     }
-    fmt.Println(Basename(flag.Arg(0)))
+    fmt.Println(gobase.Basename(flag.Arg(0)))
 }

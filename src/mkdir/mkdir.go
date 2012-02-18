@@ -14,7 +14,7 @@ func main() {
 	for i := 0; i < flag.NArg(); i++ {
 		err := os.Mkdir(flag.Arg(i), uint32(*mode))
 		if err != nil {
-			fmt.Fprintln(os.Stderr, err)
+			fmt.Fprintln(os.Stderr, "mkdir: ", err)
 		}
 	}
 }

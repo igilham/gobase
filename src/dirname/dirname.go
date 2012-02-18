@@ -4,7 +4,7 @@ import (
     "flag"
     "fmt"
     "os"
-    . "gobase"
+    "gobase"
 )
 
 // strip non-directory suffix from filename
@@ -18,5 +18,5 @@ func main() {
             fmt.Fprintln(os.Stderr, "dirname: too many arguments")
             os.Exit(1)
     }
-    fmt.Println(Dirname(flag.Arg(0)))
+    fmt.Println(gobase.Dirname(flag.Arg(0)))
 }
