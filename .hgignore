@@ -1,5 +1,3 @@
 syntax: glob
 .project
-bin
 _bin
-_obj
