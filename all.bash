@@ -25,3 +25,4 @@ go build -o $OUTDIR/true src/true/true.go
 go build -o $OUTDIR/wc src/wc/wc.go
 go build -o $OUTDIR/whoami src/whoami/whoami.go
 go build -o $OUTDIR/yes src/yes/yes.go
+go build -o $OUTDIR/uniq src/uniq/uniq.go
