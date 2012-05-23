@@ -17,10 +17,7 @@ func main() {
 	for i := 0; i < flag.NArg(); i++ {
 		fd, err := os.Open(flag.Arg(i))
 		defer fd.Close()
-		if err != nil {
-			fmt.Fprintln(os.Stderr, fmt.Sprintf("cat: can't open %s: %s", flag.Arg(i), err))
-			os.Exit(1)
-		}
+		handleError(err)
 		handleError(gobase.Cat(fd))
 	}
 }
@@ -28,5 +25,6 @@ func main() {
 func handleError(er error) {
 	if er != nil {
 		fmt.Fprintln(os.Stderr, "cat: ", er)
+		os.Exit(1)
 	}
 }

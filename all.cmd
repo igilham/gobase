@@ -26,3 +26,4 @@ go build -o %OUTDIR%\true.exe src\true\true.go
 go build -o %OUTDIR%\wc.exe src\wc\wc.go
 go build -o %OUTDIR%\whoami.exe src\whoami\whoami.go
 go build -o %OUTDIR%\yes.exe src\yes\yes.go
+go build -o %OUTDIR%\uniq.exe src\uniq\uniq.go
