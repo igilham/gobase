@@ -1,0 +1,74 @@
+package main
+
+import (
+	"fmt"
+	"flag"
+	"os"
+	"strconv"
+)
+
+var format = flag.String("f", "%g", "")
+var sep = "\n"
+
+// seq prints a sequence of numbers
+func main() {
+	flag.Parse()
+	argInd := 0
+	starts := "1.0"
+	steps := "1.0"
+	var ends string
+	switch(flag.NArg()) {
+		case 3:
+			starts = flag.Arg(argInd)
+			argInd++
+			steps = flag.Arg(argInd)
+			argInd++
+			ends = flag.Arg(argInd)
+		case 2:
+			starts = flag.Arg(argInd)
+			argInd++
+			fallthrough
+		case 1:
+			ends = flag.Arg(argInd)
+		default:
+			usageExit()
+	}
+	start := parseFloat(starts)
+	step := parseFloat(steps)
+	end := parseFloat(ends)
+	seq(start, step, end)
+}
+
+func seq(start, step, end float64) {
+	// are we counting up or down?
+	var direction float64
+	if step > 0 {
+		direction = 1.0
+	} else {
+		direction = -1.0
+	}
+	if step == 0 || start * direction > end * direction {
+		usageExit()
+	}
+	for out := start; out * direction <= end * direction; out = out + step {
+		if out != start {
+			fmt.Printf(sep)
+		}
+		fmt.Printf(*format, out)
+	}
+	fmt.Printf("\n")
+}
+
+func parseFloat(s string) float64 {
+	const bitSize = 64
+	f, e := strconv.ParseFloat(s, bitSize)
+	if e != nil && e.Error() == "ErrSyntax" {
+		usageExit()
+	}
+	return f
+}
+
+func usageExit() {
+	fmt.Fprintln(os.Stderr, "usage:\nseq [-f FORMAT] end\nseq [-f FORMAT] start end\nseq [-f FORMAT] start step end")
+	os.Exit(1)
+}

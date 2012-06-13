@@ -17,6 +17,7 @@ go build -o $OUTDIR/ls src/ls/ls.go
 go build -o $OUTDIR/mkdir src/mkdir/mkdir.go
 go build -o $OUTDIR/pwd src/pwd/pwd.go
 go build -o $OUTDIR/rm src/rm/rm.go
+go build -o $OUTDIR/seq.exe src/seq/seq.go
 go build -o $OUTDIR/sleep src/sleep/sleep.go
 go build -o $OUTDIR/sort src/sort/sort.go
 go build -o $OUTDIR/tee src/tee/tee.go

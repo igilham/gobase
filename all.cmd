@@ -18,6 +18,7 @@ go build -o %OUTDIR%\ls.exe src\ls\ls.go
 go build -o %OUTDIR%\mkdir.exe src\mkdir\mkdir.go
 go build -o %OUTDIR%\pwd.exe src\pwd\pwd.go
 go build -o %OUTDIR%\rm.exe src\rm\rm.go
+go build -o %OUTDIR%\seq.exe src\seq\seq.go
 go build -o %OUTDIR%\sleep.exe src\sleep\sleep.go
 go build -o %OUTDIR%\sort.exe src\sort\sort.go
 go build -o %OUTDIR%\tee.exe src\tee\tee.go
