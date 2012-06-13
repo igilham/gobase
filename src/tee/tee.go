@@ -83,19 +83,3 @@ func writeToFile(file *os.File, channel chan []byte) {
 		}
 	}
 }
-
-// Splits an input channel to an array of channels
-func split(inputchan chan []byte, chanar []chan []byte) { // chanar stands for channel array
-	for {
-		buffer, open := <-inputchan
-		if !open {
-			for i := 0; i <= len(chanar); i++ {
-				close(chanar[i])
-			}
-			return
-		}
-		for i := 0; i <= len(chanar); i++ {
-			chanar[i] <- buffer
-		}
-	}
-}
