@@ -11,6 +11,9 @@ const (
 	// string representing the current path in the operating system
 	cwd string      = "."
 	
+	// file path separator
+	sep = string(os.PathSeparator)
+	
 	// standard newline character
 	Newline         = '\n'
 	
