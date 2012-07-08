@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-const sleepTime int64 = 500 * int64(1e6)
+var sleepTime, _ = time.ParseDuration("500ms")
 
 var path string = os.TempDir() + "/touch_test.dat"
 
@@ -31,17 +31,15 @@ func TestTouchUpdatesTimestamp(t *testing.T) {
 		Touch(path)
 	}
 	before, _ := os.Stat(path)
+	btime := before.ModTime().UnixNano()
 	time.Sleep(sleepTime)
 	er := Touch(path)
 	if er != nil {
 		t.Errorf("error returned by Touch(path) %s", er)
 	}
 	after, _ := os.Stat(path)
-	if before.Atime_ns >= after.Atime_ns {
+	if btime >= after.ModTime().UnixNano() {
 		t.Errorf("access time not updated")
-	}
-	if before.ModTime() >= after.ModTime() {
-		t.Errorf("modified time not updated")
 	}
 	removeIfPresent(path)
 }

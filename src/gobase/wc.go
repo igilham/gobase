@@ -43,7 +43,7 @@ func Wc(fd *os.File) (WordCount, error) {
 		if utf8Point(c) {
 			wc.Chars++
 		}
-		if c == newline {
+		if c == Newline {
 			wc.Lines++
 		}
 		if !isSpace(c) {

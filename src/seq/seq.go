@@ -5,10 +5,10 @@ import (
 	"flag"
 	"os"
 	"strconv"
+	"../gobase"
 )
 
 var format = flag.String("f", "%g", "")
-var sep = "\n"
 
 // seq prints a sequence of numbers
 func main() {
@@ -36,27 +36,13 @@ func main() {
 	start := parseFloat(starts)
 	step := parseFloat(steps)
 	end := parseFloat(ends)
-	seq(start, step, end)
-}
-
-func seq(start, step, end float64) {
-	// are we counting up or down?
-	var direction float64
-	if step > 0 {
-		direction = 1.0
-	} else {
-		direction = -1.0
-	}
-	if step == 0 || start * direction > end * direction {
-		usageExit()
-	}
-	for out := start; out * direction <= end * direction; out = out + step {
-		if out != start {
-			fmt.Printf(sep)
+	out := gobase.Seq(start, step, end)
+	for n := 0; n < len(out); n++ {
+		if out[n] != start {
+			fmt.Printf(gobase.StrNewline)
 		}
-		fmt.Printf(*format, out)
+		fmt.Printf(*format, out[n])
 	}
-	fmt.Printf("\n")
 }
 
 func parseFloat(s string) float64 {

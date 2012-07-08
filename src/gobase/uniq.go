@@ -24,7 +24,7 @@ func Uniq(fd *os.File) error {
 			thisLine := buffer.Bytes()
 			if bytes.Compare(thisLine, prevLine) != 0 {
 				if len(prevLine) != 0 {
-					if _, ew := fmt.Fprintf(os.Stdout, strNewline); ew != nil {
+					if _, ew := fmt.Fprintf(os.Stdout, StrNewline); ew != nil {
 						return ew
 					}
 				}

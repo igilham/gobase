@@ -2,15 +2,16 @@ package gobase
 
 import (
 	"strings"
+	"os"
 )
 
 // Dirname strips the filename from a directory path.
 func Dirname(s string) string {
-	if s == sep {
+	if s == string(os.PathSeparator) {
 		return s
 	}
-	s = strings.TrimRight(s, sep)
-	index := strings.LastIndex(s, sep)
+	s = strings.TrimRight(s, string(os.PathSeparator))
+	index := strings.LastIndex(s, string(os.PathSeparator))
 	if index == -1 {
 		return cwd
 	}
@@ -20,5 +21,5 @@ func Dirname(s string) string {
 	if len(s) <= 1 {
 		return s
 	}
-	return strings.TrimRight(s, sep)
+	return strings.TrimRight(s, string(os.PathSeparator))
 }
