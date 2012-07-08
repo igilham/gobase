@@ -1,9 +1,11 @@
 package gobase
 
 // Seq returns a slice containing a sequence of numbers from start to end in
-// step increments.
+// step increments. If the following conditions do not hold, Seq returns the
+// empty slice.
+// step != 0
 // if step > 0; end > start
-// step < 0; end < start
+// if step < 0; end < start
 func Seq(start, step, end float64) []float64 {
 	// are we counting up or down?
 	var out []float64
