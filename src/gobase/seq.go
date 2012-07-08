@@ -1,9 +1,9 @@
 package gobase
 
-// Print a sequence of numbers.
-// step > 0; end > start
+// Seq returns a slice containing a sequence of numbers from start to end in
+// step increments.
+// if step > 0; end > start
 // step < 0; end < start
-// format: formatting string
 func Seq(start, step, end float64) []float64 {
 	// are we counting up or down?
 	var out []float64
