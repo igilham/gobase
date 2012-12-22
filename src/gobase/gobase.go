@@ -4,6 +4,8 @@ package gobase
 // gobase package.
 
 import (
+	//"bufio"
+	//"bytes"
 	"os"
 )
 

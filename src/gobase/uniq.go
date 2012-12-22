@@ -4,35 +4,29 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
-	"io"
 	"os"
 )
 
+
+// Uniq prints the input, omitting duplicated lines
 func Uniq(fd *os.File) error {
-	var prevLine []byte
+	var prevLine string
 	reader := bufio.NewReader(fd)
 	buffer := new(bytes.Buffer)
+	firstLine := true
 	for {
 		part, prefix, er := reader.ReadLine()
-		if er == io.EOF {
+		if er != nil {
 			break
-		} else if er != nil {
-			return er
 		}
 		buffer.Write(part)
 		if !prefix {
-			thisLine := buffer.Bytes()
-			if bytes.Compare(thisLine, prevLine) != 0 {
-				if len(prevLine) != 0 {
-					if _, ew := fmt.Fprintf(os.Stdout, StrNewline); ew != nil {
-						return ew
-					}
-				}
-				if _, ew := os.Stdout.Write(thisLine); ew != nil {
-					return ew
-				}
-				prevLine = thisLine
+			thisLine := buffer.String()
+			if firstLine || prevLine != thisLine {
+				fmt.Println(thisLine)
+				firstLine = false
 			}
+			prevLine = thisLine
 			buffer.Reset()
 		}
 	}
