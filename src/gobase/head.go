@@ -15,6 +15,7 @@ func Head(file *os.File, n int) []string {
 	var err error
 	reader := bufio.NewReader(file)
 	buffer := bytes.NewBuffer(make([]byte, buf_size))
+	buffer.Reset()
 	for n != len(lines) || n == 0 {
 		if part, prefix, err = reader.ReadLine(); err != nil {
 			break
