@@ -5,25 +5,25 @@ import (
 	"os"
 )
 
-func ExampleCatWithOneFile() {
+func ExampleCat_withOneFile() {
 	var files = []string {
-		"cat_test_001.txt",
+		"test_001.txt",
 	}
 	Cat(files);
 	// Output: hello
 }
 
-func ExampleCatWithTwoFiles() {
+func ExampleCat_withTwoFiles() {
 	var files = []string {
-		"cat_test_001.txt",
-		"cat_test_002.txt",
+		"test_001.txt",
+		"test_002.txt",
 	}
 	Cat(files);
 	// Output: helloworld
 }
 
-func ExampleCatFileWithOneFile() {
-	fd, err := os.Open("cat_test_001.txt")
+func ExampleCatFile_withOneFile() {
+	fd, err := os.Open("test_001.txt")
 	defer fd.Close()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "fail - file not found\n")
