@@ -4,9 +4,25 @@ import (
 	"errors"
 	"os"
 )
-
 // Cat concatenates files.
-func Cat(fd *os.File) error {
+// any errors encountered will stop iteration through the list of files.
+func Cat(files []string) error {
+	for _, s := range files {
+		fd, er := os.Open(s)
+		defer fd.Close()
+		if er != nil {
+			return er
+		}
+		ew := CatFile(fd)
+		if ew != nil {
+			return ew
+		}
+	}
+	return nil
+}
+
+// CatFile reads a single file and writes to os.Stdout.
+func CatFile(fd *os.File) error {
 	const NBUF = 512
 	var buf [NBUF]byte
 	for {

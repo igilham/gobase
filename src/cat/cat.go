@@ -12,16 +12,17 @@ import (
 func main() {
 	flag.Parse()
 	if flag.NArg() == 0 {
-		handleError(gobase.Cat(os.Stdin))
+		handleError(gobase.CatFile(os.Stdin))
 	}
+	var files []string
 	for i := 0; i < flag.NArg(); i++ {
-		fd, err := os.Open(flag.Arg(i))
-		defer fd.Close()
-		handleError(err)
-		handleError(gobase.Cat(fd))
+		files = append(files, flag.Arg(i))
 	}
+	
+	handleError(gobase.Cat(files))
 }
 
+// handle errors in the cat process
 func handleError(er error) {
 	if er != nil {
 		fmt.Fprintln(os.Stderr, "cat: ", er)
