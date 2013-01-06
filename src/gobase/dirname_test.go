@@ -8,7 +8,6 @@ type dirnameTest struct {
 	in, out string
 }
 
-
 var dirnameCases = []dirnameTest{
 	dirnameTest{"", "."},
 	dirnameTest{".", "."},

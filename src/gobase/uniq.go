@@ -7,7 +7,6 @@ import (
 	"os"
 )
 
-
 // Uniq prints the input, omitting duplicated lines
 func Uniq(fd *os.File) error {
 	var prevLine string

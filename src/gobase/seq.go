@@ -11,12 +11,12 @@ func Seq(start, step, end float64) []float64 {
 	var out []float64
 	var direction float64
 	switch {
-		case step > 0:
-			direction = 1.0
-		case step < 0:
-			direction = -1.0
-		default:
-			return out
+	case step > 0:
+		direction = 1.0
+	case step < 0:
+		direction = -1.0
+	default:
+		return out
 	}
 	if (start * direction) > (end * direction) {
 		return out

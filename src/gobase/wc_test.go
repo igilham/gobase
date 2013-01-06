@@ -1,12 +1,12 @@
 package gobase
 
 import (
-	"testing"
 	"os"
+	"testing"
 )
 
 type wcTest struct {
-	path string
+	path                       string
 	bytes, chars, words, lines uint64
 }
 

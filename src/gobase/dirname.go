@@ -1,8 +1,8 @@
 package gobase
 
 import (
-	"strings"
 	"os"
+	"strings"
 )
 
 // Dirname strips the filename from a directory path.

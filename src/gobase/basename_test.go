@@ -8,7 +8,7 @@ type basenameTest struct {
 	in, out string
 }
 
-var	basenameCases = []basenameTest{
+var basenameCases = []basenameTest{
 	//basenameTest{"", ""},
 	basenameTest{".", "."},
 	basenameTest{"..", ".."},
@@ -19,7 +19,7 @@ var	basenameCases = []basenameTest{
 	basenameTest{sep, sep},
 	basenameTest{sep + sep, sep},
 	basenameTest{sep + "a", "a"},
-	basenameTest{ sep + "a" + sep + "b", "b"},
+	basenameTest{sep + "a" + sep + "b", "b"},
 }
 
 func TestBasename(t *testing.T) {

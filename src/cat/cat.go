@@ -1,9 +1,9 @@
 package main
 
 import (
+	"../gobase"
 	"flag"
 	"fmt"
-	"../gobase"
 	"os"
 )
 
@@ -18,7 +18,7 @@ func main() {
 	for i := 0; i < flag.NArg(); i++ {
 		files = append(files, flag.Arg(i))
 	}
-	
+
 	handleError(gobase.Cat(files))
 }
 

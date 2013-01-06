@@ -18,7 +18,7 @@ type WordCount struct {
 // utf8Point determines if a byte is a valid UTF8 code point. Copied
 // from sbase/wc.c (suckless.org).
 func utf8Point(c byte) bool {
-	return c & 0xc0 != utf8.RuneSelf
+	return c&0xc0 != utf8.RuneSelf
 }
 
 // isSpace determines if a byte contains a space character.

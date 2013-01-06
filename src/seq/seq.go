@@ -1,11 +1,11 @@
 package main
 
 import (
-	"fmt"
+	"../gobase"
 	"flag"
+	"fmt"
 	"os"
 	"strconv"
-	"../gobase"
 )
 
 var format = flag.String("f", "%g", "")
@@ -17,21 +17,21 @@ func main() {
 	starts := "1.0"
 	steps := "1.0"
 	var ends string
-	switch(flag.NArg()) {
-		case 3:
-			starts = flag.Arg(argInd)
-			argInd++
-			steps = flag.Arg(argInd)
-			argInd++
-			ends = flag.Arg(argInd)
-		case 2:
-			starts = flag.Arg(argInd)
-			argInd++
-			fallthrough
-		case 1:
-			ends = flag.Arg(argInd)
-		default:
-			usageExit()
+	switch flag.NArg() {
+	case 3:
+		starts = flag.Arg(argInd)
+		argInd++
+		steps = flag.Arg(argInd)
+		argInd++
+		ends = flag.Arg(argInd)
+	case 2:
+		starts = flag.Arg(argInd)
+		argInd++
+		fallthrough
+	case 1:
+		ends = flag.Arg(argInd)
+	default:
+		usageExit()
 	}
 	start := parseFloat(starts)
 	step := parseFloat(steps)

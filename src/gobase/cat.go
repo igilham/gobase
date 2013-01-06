@@ -4,6 +4,7 @@ import (
 	"errors"
 	"os"
 )
+
 // Cat concatenates files.
 // any errors encountered will stop iteration through the list of files.
 func Cat(files []string) error {

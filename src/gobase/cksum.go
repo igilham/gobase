@@ -1,9 +1,9 @@
 package gobase
 
 import (
+	"errors"
 	"hash"
 	"hash/crc32"
-	"errors"
 	"os"
 )
 

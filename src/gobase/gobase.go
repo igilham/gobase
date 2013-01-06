@@ -11,19 +11,19 @@ import (
 
 const (
 	// string representing the current path in the operating system
-	cwd string      = "."
-	
+	cwd string = "."
+
 	// file path separator
 	sep = string(os.PathSeparator)
-	
+
 	// standard newline character
-	Newline         = '\n'
-	
+	Newline = '\n'
+
 	// standard newline character string
-	StrNewline		= string(Newline)
-	
+	StrNewline = string(Newline)
+
 	// common buffer size for file reading functions
-	buf_size        = 4096
+	buf_size = 4096
 )
 
 var (

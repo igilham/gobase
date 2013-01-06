@@ -6,19 +6,19 @@ import (
 )
 
 func ExampleCat_withOneFile() {
-	var files = []string {
+	var files = []string{
 		"test_001.txt",
 	}
-	Cat(files);
+	Cat(files)
 	// Output: hello
 }
 
 func ExampleCat_withTwoFiles() {
-	var files = []string {
+	var files = []string{
 		"test_001.txt",
 		"test_002.txt",
 	}
-	Cat(files);
+	Cat(files)
 	// Output: helloworld
 }
 
@@ -28,7 +28,7 @@ func ExampleCatFile_withOneFile() {
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "fail - file not found\n")
 	} else {
-		CatFile(fd);
+		CatFile(fd)
 	}
 	// Output: hello
 }
