@@ -19,6 +19,7 @@ func main() {
 	flag.Parse()
 	Channels := make([]chan []byte, flag.NArg()+1) // Makes the channel array
 	Files := make([]*os.File, flag.NArg()+1)       // Makes the file array
+	defer cleanupFiles(Files)
 
 	// The first output file is stdout
 	Files[0] = os.Stdout
@@ -81,5 +82,11 @@ func writeToFile(file *os.File, channel chan []byte) {
 			}
 			file.Write(buf)
 		}
+	}
+}
+
+func cleanupFiles(files []*os.File) {
+	for _, f := range files {
+		f.Close()
 	}
 }

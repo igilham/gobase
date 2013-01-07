@@ -33,6 +33,7 @@ func list(s string) {
 		fmt.Fprintln(os.Stderr, "ls: error accessing ", s)
 		os.Exit(1)
 	}
+	defer file.Close()
 	subfiles, err2 := file.Readdirnames(0)
 	if len(subfiles) == 0 && err2 != nil {
 		fmt.Fprintln(os.Stderr, "ls: error accessing contents of ", s)

@@ -14,15 +14,23 @@ var reverse = flag.Bool("r", false, "reverse sort order")
 func main() {
 	flag.Parse()
 	var lines []string
+	var er error
 	if flag.NArg() == 0 {
-		lines = gobase.Head(os.Stdin, 0)
+		lines, er = gobase.GetLines(os.Stdin, 0)
+		if er != nil {
+			fmt.Fprintf(os.Stderr, "sort: %v", er)
+		}
 	} else {
 		for i := 0; i < flag.NArg(); i++ {
 			file, err := os.Open(flag.Arg(i))
 			if err != nil {
 				fmt.Fprintln(os.Stderr, "sort: cannot open file ", flag.Arg(i))
-			} else {
-				lines = gobase.Head(file, 0)
+				os.Exit(1)
+			}
+			defer file.Close()
+			var ew error
+			if lines, ew = gobase.GetLines(file, 0); ew != nil {
+				fmt.Fprintf(os.Stderr, "sort: %v", ew)
 			}
 		}
 	}

@@ -19,10 +19,10 @@ var wcCases = []wcTest{
 func TestWc(t *testing.T) {
 	for _, tc := range wcCases {
 		fd, er := os.Open(tc.path)
-		defer fd.Close()
 		if er != nil {
 			t.Fatal(er)
 		}
+		defer fd.Close()
 		actual, ew := Wc(fd)
 		if ew != nil {
 			t.Fatal(ew)

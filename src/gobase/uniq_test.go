@@ -11,6 +11,7 @@ func ExampleUniq() {
 		fmt.Fprintf(os.Stderr, "%s\n", er)
 		os.Exit(1)
 	}
+	defer fd.Close()
 	ew := Uniq(fd)
 	if ew != nil {
 		fmt.Fprintf(os.Stderr, "%s\n", ew)

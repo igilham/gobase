@@ -15,8 +15,8 @@ func main() {
 	}
 	for i := 0; i < flag.NArg(); i++ {
 		fd, err := os.Open(flag.Arg(i))
-		defer fd.Close()
 		handleError(err)
+		defer fd.Close()
 		handleError(gobase.Uniq(fd))
 	}
 }

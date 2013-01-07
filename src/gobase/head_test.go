@@ -1,111 +1,110 @@
 package gobase
 
 import (
+	"fmt"
 	"os"
-	"testing"
 )
 
-func TestHead_1Line(t *testing.T) {
+func ExampleHead_1Line() {
 	fd, er := os.Open("test_004.txt")
 	if er != nil {
-		t.Fatal(er)
+		fmt.Fprintf(os.Stderr, "%s\n", er)
+		os.Exit(1)
 	}
-	var expected = []string{
-		"001",
-	}
-	actual := Head(fd, 1)
-	verifyHeadResults(t, expected, actual)
+	defer fd.Close()
+	Head(fd, 1)
+	// Output: 001
 }
 
-func TestHead_10Lines(t *testing.T) {
+func ExampleHead_AllLinesInOneLineFile() {
+	fd, er := os.Open("test_001.txt")
+	if er != nil {
+		fmt.Fprintf(os.Stderr, "%s\n", er)
+		os.Exit(1)
+	}
+	defer fd.Close()
+	Head(fd, 0)
+	// Output: hello
+}
+
+func ExampleHead_10Lines() {
 	fd, er := os.Open("test_004.txt")
 	if er != nil {
-		t.Fatal(er)
+		fmt.Fprintf(os.Stderr, "%s\n", er)
+		os.Exit(1)
 	}
-	var expected = []string{
-		"001",
-		"002",
-		"003",
-		"004",
-		"005",
-		"006",
-		"007",
-		"008",
-		"009",
-		"010",
-	}
-	actual := Head(fd, 10)
-	verifyHeadResults(t, expected, actual)
+	defer fd.Close()
+	Head(fd, 10)
+	// Output:
+	// 001
+	// 002
+	// 003
+	// 004
+	// 005
+	// 006
+	// 007
+	// 008
+	// 009
+	// 010
 }
 
-func TestHead_AllLines(t *testing.T) {
+func ExampleHead_AllLines() {
 	fd, er := os.Open("test_004.txt")
 	if er != nil {
-		t.Fatal(er)
+		fmt.Fprintf(os.Stderr, "%s\n", er)
+		os.Exit(1)
 	}
-	var expected = []string{
-		"001",
-		"002",
-		"003",
-		"004",
-		"005",
-		"006",
-		"007",
-		"008",
-		"009",
-		"010",
-		"011",
-		"012",
-		"013",
-		"014",
-		"015",
-		"016",
-		"017",
-		"018",
-		"019",
-		"020",
-	}
-	actual := Head(fd, 0)
-	verifyHeadResults(t, expected, actual)
+	defer fd.Close()
+	Head(fd, 0)
+	// Output:
+	// 001
+	// 002
+	// 003
+	// 004
+	// 005
+	// 006
+	// 007
+	// 008
+	// 009
+	// 010
+	// 011
+	// 012
+	// 013
+	// 014
+	// 015
+	// 016
+	// 017
+	// 018
+	// 019
+	// 020
 }
 
-func TestHead_19Lines(t *testing.T) {
+func ExampleHead_19Lines() {
 	fd, er := os.Open("test_004.txt")
 	if er != nil {
-		t.Fatal(er)
+		fmt.Fprintf(os.Stderr, "%s\n", er)
+		os.Exit(1)
 	}
-	var expected = []string{
-		"001",
-		"002",
-		"003",
-		"004",
-		"005",
-		"006",
-		"007",
-		"008",
-		"009",
-		"010",
-		"011",
-		"012",
-		"013",
-		"014",
-		"015",
-		"016",
-		"017",
-		"018",
-		"019",
-	}
-	actual := Head(fd, 19)
-	verifyHeadResults(t, expected, actual)
-}
-
-func verifyHeadResults(t *testing.T, expected, actual []string) {
-	if len(expected) != len(actual) {
-		t.Errorf("line count: expected %d but was %d\n", len(expected), len(actual))
-	}
-	for i, val := range expected {
-		if val != actual[i] {
-			t.Errorf("value mis-match: expected \"%s\" but found \"%s\"\n", val, actual[i])
-		}
-	}
+	defer fd.Close()
+	Head(fd, 19)
+	// Output:
+	// 001
+	// 002
+	// 003
+	// 004
+	// 005
+	// 006
+	// 007
+	// 008
+	// 009
+	// 010
+	// 011
+	// 012
+	// 013
+	// 014
+	// 015
+	// 016
+	// 017
+	// 018
+	// 019
 }

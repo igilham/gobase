@@ -24,11 +24,11 @@ func ExampleCat_withTwoFiles() {
 
 func ExampleCatFile_withOneFile() {
 	fd, err := os.Open("test_001.txt")
-	defer fd.Close()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "fail - file not found\n")
-	} else {
-		CatFile(fd)
+		os.Exit(1)
 	}
+	defer fd.Close()
+	CatFile(fd)
 	// Output: hello
 }

@@ -21,12 +21,12 @@ func main() {
 	}
 	for i := 0; i < flag.NArg(); i++ {
 		fd, er := os.Open(flag.Arg(i))
-		defer fd.Close()
 		if er != nil {
 			fmt.Fprintln(os.Stderr, "wc: ", er)
-		} else {
-			wc(fd)
+			os.Exit(1)
 		}
+		defer fd.Close()
+		wc(fd)
 	}
 }
 
