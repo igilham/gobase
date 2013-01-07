@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"os"
 )
 
@@ -36,8 +37,7 @@ func list(s string) {
 	defer file.Close()
 	subfiles, err2 := file.Readdirnames(0)
 	if len(subfiles) == 0 && err2 != nil {
-		fmt.Fprintln(os.Stderr, "ls: error accessing contents of ", s)
-		os.Exit(1)
+		log.Fatalf("ls: error accessing contents of ", s)
 	}
 	for i := 0; i < len(subfiles); i++ {
 		fmt.Println(subfiles[i])

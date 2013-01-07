@@ -2,14 +2,14 @@ package gobase
 
 import (
 	"fmt"
+	"log"
 	"os"
 )
 
 func Pwd() {
 	wd, err := os.Getwd()
 	if err != nil {
-		fmt.Fprintln(os.Stderr, "pwd: ", err)
-		os.Exit(1)
+		log.Fatalf("pwd: %v", err)
 	} else {
 		fmt.Println(wd)
 	}

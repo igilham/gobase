@@ -1,7 +1,7 @@
 package gobase
 
 import (
-	"fmt"
+	"log"
 	"os"
 )
 
@@ -25,8 +25,7 @@ func ExampleCat_withTwoFiles() {
 func ExampleCatFile_withOneFile() {
 	fd, err := os.Open("test_001.txt")
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "fail - file not found\n")
-		os.Exit(1)
+		log.Fatal("fail - file not found\n")
 	}
 	defer fd.Close()
 	CatFile(fd)

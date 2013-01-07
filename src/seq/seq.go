@@ -4,7 +4,7 @@ import (
 	"../gobase"
 	"flag"
 	"fmt"
-	"os"
+	"log"
 	"strconv"
 )
 
@@ -55,6 +55,5 @@ func parseFloat(s string) float64 {
 }
 
 func usageExit() {
-	fmt.Fprintln(os.Stderr, "usage:\nseq [-f FORMAT] end\nseq [-f FORMAT] start end\nseq [-f FORMAT] start step end")
-	os.Exit(1)
+	log.Fatalf("usage:\nseq [-f FORMAT] end\nseq [-f FORMAT] start end\nseq [-f FORMAT] start step end")
 }

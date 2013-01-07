@@ -2,8 +2,7 @@ package main
 
 import (
 	"flag"
-	"fmt"
-	"os"
+	"log"
 	"time"
 )
 
@@ -18,7 +17,7 @@ func main() {
 	}
 	time.Sleep(d)
 }
+
 func fail() {
-	fmt.Println("sleep: invalid arguments")
-	os.Exit(1)
+	log.Fatal("sleep: invalid arguments")
 }

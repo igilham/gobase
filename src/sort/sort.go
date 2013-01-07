@@ -4,6 +4,7 @@ import (
 	"../gobase"
 	"flag"
 	"fmt"
+	"log"
 	"os"
 	"sort"
 )
@@ -24,8 +25,7 @@ func main() {
 		for i := 0; i < flag.NArg(); i++ {
 			file, err := os.Open(flag.Arg(i))
 			if err != nil {
-				fmt.Fprintln(os.Stderr, "sort: cannot open file ", flag.Arg(i))
-				os.Exit(1)
+				log.Fatalf("sort: cannot open file ", flag.Arg(i))
 			}
 			defer file.Close()
 			var ew error

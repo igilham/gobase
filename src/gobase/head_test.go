@@ -1,15 +1,14 @@
 package gobase
 
 import (
-	"fmt"
+	"log"
 	"os"
 )
 
 func ExampleHead_1Line() {
 	fd, er := os.Open("test_004.txt")
 	if er != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", er)
-		os.Exit(1)
+		log.Fatalf("%v\n", er)
 	}
 	defer fd.Close()
 	Head(fd, 1)
@@ -19,8 +18,7 @@ func ExampleHead_1Line() {
 func ExampleHead_AllLinesInOneLineFile() {
 	fd, er := os.Open("test_001.txt")
 	if er != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", er)
-		os.Exit(1)
+		log.Fatalf("%v\n", er)
 	}
 	defer fd.Close()
 	Head(fd, 0)
@@ -30,8 +28,7 @@ func ExampleHead_AllLinesInOneLineFile() {
 func ExampleHead_10Lines() {
 	fd, er := os.Open("test_004.txt")
 	if er != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", er)
-		os.Exit(1)
+		log.Fatalf("%v\n", er)
 	}
 	defer fd.Close()
 	Head(fd, 10)
@@ -51,8 +48,7 @@ func ExampleHead_10Lines() {
 func ExampleHead_AllLines() {
 	fd, er := os.Open("test_004.txt")
 	if er != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", er)
-		os.Exit(1)
+		log.Fatalf("%v\n", er)
 	}
 	defer fd.Close()
 	Head(fd, 0)
@@ -82,8 +78,7 @@ func ExampleHead_AllLines() {
 func ExampleHead_19Lines() {
 	fd, er := os.Open("test_004.txt")
 	if er != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", er)
-		os.Exit(1)
+		log.Fatalf("%v\n", er)
 	}
 	defer fd.Close()
 	Head(fd, 19)

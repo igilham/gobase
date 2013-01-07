@@ -3,7 +3,7 @@ package main
 import (
 	"../gobase"
 	"flag"
-	"fmt"
+	"log"
 	"os"
 )
 
@@ -25,7 +25,6 @@ func main() {
 // handle errors in the cat process
 func handleError(er error) {
 	if er != nil {
-		fmt.Fprintln(os.Stderr, "cat: ", er)
-		os.Exit(1)
+		log.Fatalf("cat: %v", er)
 	}
 }

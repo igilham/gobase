@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"log"
 	"os"
 )
 
@@ -35,12 +36,10 @@ func main() {
 					var nerr error
 					Files[i], nerr = os.Create(flag.Arg(i - 1))
 					if nerr != nil {
-						fmt.Fprintln(os.Stderr, nerr)
-						os.Exit(1)
+						log.Fatal(nerr)
 					}
 				} else {
-					fmt.Fprintln(os.Stderr, err)
-					os.Exit(1)
+					log.Fatal(err)
 				}
 			}
 		} else {

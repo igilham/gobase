@@ -4,14 +4,14 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"log"
 	"os"
 )
 
 func main() {
 	flag.Parse()
 	if flag.NArg() == 0 {
-		fmt.Fprintf(os.Stderr, "rm: no file specified")
-		os.Exit(1)
+		log.Fatal("rm: no file specified")
 	}
 	exitCode := 0
 	for i := 0; i < flag.NArg(); i++ {

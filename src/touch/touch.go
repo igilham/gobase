@@ -4,6 +4,7 @@ import (
 	"../gobase"
 	"flag"
 	"fmt"
+	"log"
 	"os"
 )
 
@@ -11,8 +12,7 @@ import (
 func main() {
 	flag.Parse()
 	if flag.NArg() == 0 {
-		fmt.Fprintln(os.Stderr, "touch: missing file operand")
-		os.Exit(1)
+		log.Fatal("touch: missing file operand")
 	}
 	for i := 0; i < flag.NArg(); i++ {
 		er := gobase.Touch(flag.Arg(i))
