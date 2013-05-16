@@ -1,7 +1,7 @@
 package main
 
 import (
-	"../gobase"
+	"gobase"
 )
 
 // prints the current working directory

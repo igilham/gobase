@@ -1,7 +1,7 @@
 package main
 
 import (
-	"../gobase"
+	"gobase"
 	"flag"
 	"fmt"
 	"log"
@@ -23,7 +23,7 @@ func main() {
 	for i := 0; i < flag.NArg(); i++ {
 		fd, er := os.Open(flag.Arg(i))
 		if er != nil {
-			log.Fatalf("wc: ", er)
+			log.Fatalf("wc: %s\n", er)
 		}
 		defer fd.Close()
 		wc(fd)

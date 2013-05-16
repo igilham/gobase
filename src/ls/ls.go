@@ -37,7 +37,7 @@ func list(s string) {
 	defer file.Close()
 	subfiles, err2 := file.Readdirnames(0)
 	if len(subfiles) == 0 && err2 != nil {
-		log.Fatalf("ls: error accessing contents of ", s)
+		log.Fatalf("ls: error accessing contents of %s\n", s)
 	}
 	for i := 0; i < len(subfiles); i++ {
 		fmt.Println(subfiles[i])

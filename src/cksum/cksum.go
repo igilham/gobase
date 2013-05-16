@@ -1,7 +1,7 @@
 package main
 
 import (
-	"../gobase"
+	"gobase"
 	"flag"
 	"fmt"
 	"hash"
@@ -44,7 +44,7 @@ func printCksum(h hash.Hash32, e error) {
 
 func printNamedCksum(h hash.Hash32, fd *os.File, e error, suppressName bool) {
 	if e != nil {
-		fmt.Fprintln(os.Stderr, "cksum: %s", e)
+		fmt.Fprintf(os.Stderr, "cksum: %s\n", e)
 	} else if h != nil {
 		if suppressName {
 			fmt.Println(h.Sum32())

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"../gobase"
+	"gobase"
 	"flag"
 	"fmt"
 	"log"
@@ -17,7 +17,7 @@ func main() {
 	} else {
 		for i, arg := range flag.Args() {
 			if f, err := os.Open(arg); err != nil {
-				log.Fatalf("head: cannot open file ", arg)
+				log.Fatalf("head: cannot open file \n", arg)
 			} else {
 				defer f.Close()
 				handle(gobase.Head(f, *lines))

@@ -26,5 +26,4 @@ func Cksum(fd *os.File) (hash.Hash32, error) {
 			}
 		}
 	}
-	return h, nil
 }

@@ -38,5 +38,4 @@ func CatFile(fd *os.File) error {
 			}
 		}
 	}
-	return nil
 }

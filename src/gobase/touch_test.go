@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-var sleepTime, _ = time.ParseDuration("500ms")
+var sleepTime, _ = time.ParseDuration("1000ms")
 
 var path string = os.TempDir() + "/touch_test.dat"
 
