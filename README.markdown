@@ -11,9 +11,10 @@ All code is licensed under the 2-clause FreeBSD license (see file: LICENSE).
 Building
 --------
 
-In order to build **gocoreutils**, just run `./all.bash` or `all.cmd` from the
-src folder, then copy the **_bin** folder wherever you want.
+In order to build **gocoreutils**, just run `./all.bash install` or `all.cmd install` from the
+workspace root.
 
-To just build, run src/build.bash or src\build.cmd.
+The build scripts pass an argument to the `go` tool and run it for all libs and applications in
+the workspace. They will work with all the usual arguments: `build`, `install`, `test`, `fmt`,
+`fix`, `vet`, etc.
 
-To just run the unit tests, run src/test.bash or src\test.cmd.
