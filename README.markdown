@@ -22,9 +22,15 @@ All code is licensed under the 2-clause FreeBSD license (see file: LICENSE).
 Prerequisites
 -------------
 
+* Go compiler and tools
+* Ruby
+* Cucumber
+
 You will need an installation of the [Go compiler](http://golang.org/) and tools. The website
 has some documentation on how to get that set up. If you can build a hellp world program,
 you should be able to build gobase.
+
+Ruby and cucumber are used for integration testing of the binary applications.
 
 Dependencies
 ------------
@@ -52,4 +58,6 @@ To run any associated unit tests, run `go test THING`. You can also use the `fmt
 `vet`, `fix` etc. commands in the same way.
 
 The gobase package will be placed in `pkg`. Application binaries will be placed in `bin`.
+
+To run the cucumber tests, just run `cucumber` from the checkout root directory.
 
