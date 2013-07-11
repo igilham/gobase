@@ -20,10 +20,18 @@ When /^I run echo -n with three arguments$/ do
   @stdin, @stdout, @stderr = Open3.popen3("bin/echo -n #{@input}")
 end
 
-Then /^I should see the input with a newline$/ do 
+When /^I run echo without arguments$/ do
+  @stdin, @stdout, @stderr = Open3.popen3("bin/echo")
+end
+
+Then /^it should print the input with a newline$/ do 
   @stdout.read.should == "#{@input}\n"
 end
 
-Then /^I should see the input without a newline$/ do 
+Then /^it should print the input without a newline$/ do 
   @stdout.read.should == @input
+end
+
+Then /^it should print a newline$/ do 
+  @stdout.read.should == "\n"
 end
