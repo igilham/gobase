@@ -6,7 +6,7 @@ import (
 )
 
 func TestGetLines_1Line(t *testing.T) {
-	fd, er := os.Open("test_004.txt")
+	fd, er := os.Open("../../resources/test_004.txt")
 	if er != nil {
 		t.Fatal(er)
 	}
@@ -19,7 +19,7 @@ func TestGetLines_1Line(t *testing.T) {
 }
 
 func TestGetLines_AllLinesInOneLineFile(t *testing.T) {
-	fd, er := os.Open("test_001.txt")
+	fd, er := os.Open("../../resources/test_001.txt")
 	if er != nil {
 		t.Fatal(er)
 	}
@@ -32,7 +32,7 @@ func TestGetLines_AllLinesInOneLineFile(t *testing.T) {
 }
 
 func TestGetLines_10Lines(t *testing.T) {
-	fd, er := os.Open("test_004.txt")
+	fd, er := os.Open("../../resources/test_004.txt")
 	if er != nil {
 		t.Fatal(er)
 	}
@@ -54,7 +54,7 @@ func TestGetLines_10Lines(t *testing.T) {
 }
 
 func TestGetLines_AllLines(t *testing.T) {
-	fd, er := os.Open("test_004.txt")
+	fd, er := os.Open("../../resources/test_004.txt")
 	if er != nil {
 		t.Fatal(er)
 	}
@@ -86,7 +86,7 @@ func TestGetLines_AllLines(t *testing.T) {
 }
 
 func TestGetLines_19Lines(t *testing.T) {
-	fd, er := os.Open("test_004.txt")
+	fd, er := os.Open("../../resources/test_004.txt")
 	if er != nil {
 		t.Fatal(er)
 	}

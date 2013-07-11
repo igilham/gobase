@@ -7,7 +7,7 @@ import (
 
 func ExampleCat_withOneFile() {
 	var files = []string{
-		"test_001.txt",
+		"../../resources/test_001.txt",
 	}
 	Cat(files)
 	// Output: hello
@@ -15,15 +15,15 @@ func ExampleCat_withOneFile() {
 
 func ExampleCat_withTwoFiles() {
 	var files = []string{
-		"test_001.txt",
-		"test_002.txt",
+		"../../resources/test_001.txt",
+		"../../resources/test_002.txt",
 	}
 	Cat(files)
 	// Output: helloworld
 }
 
 func ExampleCatFile_withOneFile() {
-	fd, err := os.Open("test_001.txt")
+	fd, err := os.Open("../../resources/test_001.txt")
 	if err != nil {
 		log.Fatal("fail - file not found\n")
 	}
