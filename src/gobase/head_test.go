@@ -6,7 +6,7 @@ import (
 )
 
 func ExampleHead_1Line() {
-	fd, er := os.Open("test_004.txt")
+	fd, er := os.Open("../../resources/test_004.txt")
 	if er != nil {
 		log.Fatalf("%v\n", er)
 	}
@@ -16,7 +16,7 @@ func ExampleHead_1Line() {
 }
 
 func ExampleHead_AllLinesInOneLineFile() {
-	fd, er := os.Open("test_001.txt")
+	fd, er := os.Open("../../resources/test_001.txt")
 	if er != nil {
 		log.Fatalf("%v\n", er)
 	}
@@ -26,7 +26,7 @@ func ExampleHead_AllLinesInOneLineFile() {
 }
 
 func ExampleHead_10Lines() {
-	fd, er := os.Open("test_004.txt")
+	fd, er := os.Open("../../resources/test_004.txt")
 	if er != nil {
 		log.Fatalf("%v\n", er)
 	}
@@ -46,7 +46,7 @@ func ExampleHead_10Lines() {
 }
 
 func ExampleHead_AllLines() {
-	fd, er := os.Open("test_004.txt")
+	fd, er := os.Open("../../resources/test_004.txt")
 	if er != nil {
 		log.Fatalf("%v\n", er)
 	}
@@ -76,7 +76,7 @@ func ExampleHead_AllLines() {
 }
 
 func ExampleHead_19Lines() {
-	fd, er := os.Open("test_004.txt")
+	fd, er := os.Open("../../resources/test_004.txt")
 	if er != nil {
 		log.Fatalf("%v\n", er)
 	}
