@@ -17,7 +17,7 @@ func main() {
 	for i := 0; i < flag.NArg(); i++ {
 		er := rm(flag.Arg(i))
 		if er != nil {
-			fmt.Fprintf(os.Stderr, "rm: ", er)
+			fmt.Fprintf(os.Stderr, "rm: %s\n", er)
 			exitCode = 1
 		}
 	}
@@ -34,5 +34,5 @@ func rm(path string) error {
 	default:
 		return os.Remove(path)
 	}
-	return nil
 }
+
