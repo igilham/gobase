@@ -17,7 +17,7 @@ func main() {
 	} else {
 		for i, arg := range flag.Args() {
 			if f, err := os.Open(arg); err != nil {
-				log.Fatalf("head: cannot open file \n", arg)
+				log.Fatalf("head: cannot open file %s\n", arg)
 			} else {
 				defer f.Close()
 				handle(gobase.Head(f, *lines))
