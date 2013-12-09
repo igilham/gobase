@@ -35,4 +35,3 @@ func rm(path string) error {
 		return os.Remove(path)
 	}
 }
-

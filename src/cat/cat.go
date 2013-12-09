@@ -1,13 +1,13 @@
 package main
 
 import (
-	"gobase"
 	"flag"
+	"gobase"
 	"log"
 	"os"
 )
 
-// concatenate the specified files, joining with a newline. If -n is specified, 
+// concatenate the specified files, joining with a newline. If -n is specified,
 // the newline will be omitted.
 func main() {
 	flag.Parse()

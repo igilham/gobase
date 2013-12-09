@@ -1,8 +1,8 @@
 package main
 
 import (
-	"gobase"
 	"flag"
+	"gobase"
 	"log"
 	"os"
 )

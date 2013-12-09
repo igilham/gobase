@@ -1,9 +1,9 @@
 package main
 
 import (
-	"gobase"
 	"flag"
 	"fmt"
+	"gobase"
 	"hash"
 	"os"
 )

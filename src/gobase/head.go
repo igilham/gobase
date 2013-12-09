@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-// Head gets the first n lines of a file. If n == 0, then attempt to get all 
+// Head gets the first n lines of a file. If n == 0, then attempt to get all
 // the lines.
 func Head(file *os.File, n int) error {
 	lines := 0

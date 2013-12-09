@@ -11,7 +11,7 @@ const (
 	colon = ":"
 )
 
-// list files - lists files in the current directory if no argument is given, 
+// list files - lists files in the current directory if no argument is given,
 // or lists files in all directories specified as arguments
 func main() {
 	flag.Parse()
