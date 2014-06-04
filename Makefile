@@ -1,18 +1,37 @@
 GOPATH=$(shell pwd)
 
-ALL_TARGETS=cksum echo false ls mkdir pwd rm sleep tee true whoami yes $(TESTABLE_TARGETS)
-TESTABLE_TARGETS=basename cat dirname head seq sort touch uniq wc
+TARGETS=basename \
+        cat \
+        cksum \
+				dirname \
+				echo \
+				false \
+				head \
+				ls \
+				mkdir \
+				pwd \
+				rm \
+				seq \
+				sleep \
+				sort \
+				tee \
+				touch \
+				true \
+				uniq \
+				wc \
+				whoami \
+				yes
 
 # default target
 .PHONY: build
 
 # build code
 build:
-	go build $(ALL_TARGETS)
+	go build $(TARGETS)
 
 # run unit tests
 test:
-	go test $(TESTABLE_TARGETS)
+	go test $(TARGETS)
 
 gems:
 	bundle install
@@ -23,26 +42,26 @@ uat: gems install
 
 # automate formatting of code
 fmt:
-	go fmt $(ALL_TARGETS)
+	go fmt $(TARGETS)
 
 # automate fixing of source code for current version of go
 fix:
-	go fix $(ALL_TARGETS)
+	go fix $(TARGETS)
 
 # fetch the vet command tool
 vetcmd:
 	go get code.google.com/p/go.tools/cmd/vet
 
 vet: vetdcmd
-	go vet $(ALL_TARGETS)
+	go vet $(TARGETS)
 
 # install binaries
 install: test
-	go install $(ALL_TARGETS)
+	go install $(TARGETS)
 
 all: install uat
 
 clean:
-	go clean $(ALL_TARGETS)
+	go clean $(TARGETS)
 	rm -rf bin 2>/dev/null
 	rm -rf pkg 2>/dev/null
