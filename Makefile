@@ -1,7 +1,7 @@
 GOPATH=$(shell pwd)
 
-ALL_TARGETS=basename cat cksum dirname echo false head ls mkdir pwd rm seq sleep tee touch true uniq wc whoami yes $(TESTABLE_TARGETS)
-TESTABLE_TARGETS=gobase sort
+ALL_TARGETS=basename cksum dirname echo false head ls mkdir pwd rm seq sleep tee touch true uniq wc whoami yes $(TESTABLE_TARGETS)
+TESTABLE_TARGETS=gobase cat sort
 
 # default target
 .PHONY: build
