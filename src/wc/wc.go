@@ -1,11 +1,26 @@
 package main
 
 import (
+	"bufio"
 	"flag"
 	"fmt"
-	"gobase"
+	"io"
 	"log"
 	"os"
+	"unicode/utf8"
+)
+
+// WordCount contains the counts calculated by the Wc algorithm.
+type WordCount struct {
+	Bytes uint64
+	Chars uint64
+	Words uint64
+	Lines uint64
+}
+
+const (
+	// standard newline character
+	Newline = '\n'
 )
 
 var (
@@ -13,7 +28,54 @@ var (
 	countWords = flag.Bool("w", false, "count words")
 	countBytes = flag.Bool("c", false, "count bytes")
 	countChars = flag.Bool("m", false, "count characters")
+	
+	// slice of characters representative of whitespace
+	whiteSpaceChars = []byte{9, 10, 11, 12, 13, 32}
 )
+
+// utf8Point determines if a byte is a valid UTF8 code point. Copied
+// from sbase/wc.c (suckless.org).
+func utf8Point(c byte) bool {
+	return c&0xc0 != utf8.RuneSelf
+}
+
+// isSpace determines if a byte contains a space character.
+func isSpace(c byte) bool {
+	for _, b := range whiteSpaceChars {
+		if c == b {
+			return true
+		}
+	}
+	return false
+}
+
+// Wc counts the lines, words, bytes and characters in a file.
+func Wc(fd *os.File) (WordCount, error) {
+	reader := bufio.NewReader(fd)
+	wc := WordCount{0, 0, 0, 0}
+	word := false
+	var c byte
+	var e error
+	for c, e = reader.ReadByte(); e == nil; c, e = reader.ReadByte() {
+		wc.Bytes++
+		if utf8Point(c) {
+			wc.Chars++
+		}
+		if c == Newline {
+			wc.Lines++
+		}
+		if !isSpace(c) {
+			word = true
+		} else if word {
+			word = false
+			wc.Words++
+		}
+	}
+	if e == io.EOF {
+		return wc, nil
+	}
+	return wc, e
+}
 
 func main() {
 	flag.Parse()
@@ -31,7 +93,7 @@ func main() {
 }
 
 func wc(fd *os.File) {
-	wc, ew := gobase.Wc(fd)
+	wc, ew := Wc(fd)
 	if ew != nil {
 		fmt.Fprintln(os.Stderr, "wc: ", ew)
 	} else {
@@ -39,7 +101,7 @@ func wc(fd *os.File) {
 	}
 }
 
-func output(wc gobase.WordCount, name string) {
+func output(wc WordCount, name string) {
 	noFlags := !*countLines && !*countWords && !*countBytes && !*countChars
 	oneFlag := !(*countLines && *countWords) &&
 		!(*countLines && *countBytes) &&
