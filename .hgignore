@@ -1,4 +1,6 @@
 syntax: glob
+.DS_Store
 .project
 bin
 pkg
+Gemfile.lock
