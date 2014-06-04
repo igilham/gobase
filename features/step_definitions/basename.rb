@@ -6,6 +6,5 @@ When(/^I run basename with a file argument$/) do
 end
 
 Then(/^it should print the basename of the argument$/) do
-  @stdout.read.should == "basename.go\n"
+  expect(@stdout.read).to eq("basename.go\n")
 end
-

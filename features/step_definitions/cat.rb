@@ -17,14 +17,13 @@ When /^I cat the file$/ do
 end
 
 Then /^I should see the content of the file$/ do
-  @stdout.read.should == IO.read(@file)
+  expect(@stdout.read).to eq(IO.read(@file))
 end
 
 Then /^there should be no error prints$/ do
-  @stderr.read.should == ""
+  expect(@stderr.read).to eq("")
 end
 
 Then /^I should see nothing$/ do
-  @stderr.read.should == ""
+  expect(@stderr.read).to eq("")
 end
-

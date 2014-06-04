@@ -24,14 +24,14 @@ When /^I run echo without arguments$/ do
   @stdin, @stdout, @stderr = Open3.popen3("bin/echo")
 end
 
-Then /^it should print the input with a newline$/ do 
-  @stdout.read.should == "#{@input}\n"
+Then /^it should print the input with a newline$/ do
+  expect(@stdout.read).to eq("#{@input}\n")
 end
 
-Then /^it should print the input without a newline$/ do 
-  @stdout.read.should == @input
+Then /^it should print the input without a newline$/ do
+  expect(@stdout.read).to eq(@input)
 end
 
-Then /^it should print a newline$/ do 
-  @stdout.read.should == "\n"
+Then /^it should print a newline$/ do
+  expect(@stdout.read).to eq("\n")
 end
