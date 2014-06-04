@@ -1,10 +1,8 @@
-package gobase
+package main
 
 import (
 	"testing"
 )
-
-var format = "%g"
 
 type seqTest struct {
 	c                int
@@ -34,8 +32,9 @@ var seqCases = []seqTest{
 }
 
 func TestSeq(t *testing.T) {
+	var format = "%g"
 	for _, s := range seqCases {
-		res := Seq(s.start, s.step, s.end)
+		res := Seq(s.start, s.step, s.end, format)
 		count := len(res)
 		expCount := len(s.exp)
 		if len(res) != len(s.exp) {
