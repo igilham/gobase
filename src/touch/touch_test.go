@@ -1,7 +1,6 @@
 package main
 
 import (
-	"gobase"
 	"os"
 	"testing"
 	"time"
@@ -11,8 +10,15 @@ var sleepTime, _ = time.ParseDuration("1000ms")
 
 var path string = os.TempDir() + "/touch_test.dat"
 
+// FileExists returns true if path points to an existing file, and false
+// otherwise.
+func fileExists(path string) bool {
+	fi, _ := os.Stat(path)
+	return fi != nil
+}
+
 func removeIfPresent(s string) error {
-	if gobase.FileExists(s) {
+	if fileExists(s) {
 		return os.Remove(s)
 	}
 	return nil
@@ -21,14 +27,14 @@ func removeIfPresent(s string) error {
 func TestTouchCreatesNewFile(t *testing.T) {
 	removeIfPresent(path)
 	Touch(path)
-	if !gobase.FileExists(path) {
+	if !fileExists(path) {
 		t.Errorf("file not created %s", path)
 	}
 	removeIfPresent(path)
 }
 
 func TestTouchUpdatesTimestamp(t *testing.T) {
-	if !gobase.FileExists(path) {
+	if !fileExists(path) {
 		Touch(path)
 	}
 	before, _ := os.Stat(path)
