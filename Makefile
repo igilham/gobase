@@ -21,7 +21,7 @@ gems:
 	bundle install
 
 # run cukes
-cucumber: gems
+cucumber: gems install
 	cucumber
 
 # automate formatting of code
