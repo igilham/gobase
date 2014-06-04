@@ -1,7 +1,7 @@
 GOPATH=$(shell pwd)
 
-ALL_TARGETS=cksum dirname echo false head ls mkdir pwd rm seq sleep tee touch true uniq wc whoami yes $(TESTABLE_TARGETS)
-TESTABLE_TARGETS=gobase basename cat sort
+ALL_TARGETS=cksum echo false head ls mkdir pwd rm seq sleep tee touch true uniq wc whoami yes $(TESTABLE_TARGETS)
+TESTABLE_TARGETS=gobase basename cat dirname sort
 
 # default target
 .PHONY: build
@@ -10,18 +10,15 @@ TESTABLE_TARGETS=gobase basename cat sort
 build:
 	go build $(ALL_TARGETS)
 
-# run all tests
-test: unittest cucumber
-
 # run unit tests
-unittest:
+test:
 	go test $(TESTABLE_TARGETS)
 
 gems:
 	bundle install
 
-# run cukes
-cucumber: gems install
+# run cucumber user acceptance tests
+uat: gems install
 	cucumber
 
 # automate formatting of code
@@ -40,8 +37,10 @@ vet: vetdcmd
 	go vet $(ALL_TARGETS)
 
 # install binaries
-install:
+install: test
 	go install $(ALL_TARGETS)
+
+all: install uat
 
 clean:
 	go clean $(ALL_TARGETS)
