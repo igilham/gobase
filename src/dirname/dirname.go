@@ -17,10 +17,17 @@ const (
 
 // Dirname strips the filename from a directory path.
 func Dirname(s string) string {
-	if s == separator {
-		return s
+	switch {
+		case s == "":
+			return "."
+		case s == separator:
+			return s
 	}
+	hasSlashes := strings.Contains(s, separator)
 	s = strings.TrimRight(s, separator)
+	if hasSlashes && s == "" {
+		return separator
+	}
 	index := strings.LastIndex(s, separator)
 	if index == -1 {
 		return cwd
