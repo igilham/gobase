@@ -3,21 +3,26 @@ package main
 import (
 	"errors"
 	"flag"
+	"io"
 	"log"
 	"os"
 )
 
 const (
-	nbuf = 4096 // buffer size in bytes
+	// buffer size in bytes
+	// benchmarking has shown that 4kB is a good balance
+	nbuf = 1024 * 4
+	stdinPlaceholder = "-"
 )
 
 // Cat concatenates files.
 // any errors encountered will stop iteration through the list of files.
-func Cat(files []string) error {
+// "-" counts as os.Stdin
+func Cat(files []string, writer io.Writer) error {
 	for _, s := range files {
 		var fd *os.File
 		var er error
-		if s == "-" {
+		if s == stdinPlaceholder {
 			fd = os.Stdin
 		} else {
 			fd, er = os.Open(s)
@@ -26,7 +31,7 @@ func Cat(files []string) error {
 				return er
 			}
 		}
-		ew := CatFile(fd)
+		ew := CatFile(fd, writer)
 		if ew != nil {
 			return er
 		}
@@ -35,17 +40,18 @@ func Cat(files []string) error {
 }
 
 // CatFile reads a single file and writes to os.Stdout.
-func CatFile(fd *os.File) error {
+func CatFile(reader io.Reader, writer io.Writer) error {
 	var buf [nbuf]byte
 	for {
-		switch nr, er := fd.Read(buf[:]); true {
+		nr, er := reader.Read(buf[:])
+		switch {
 		case nr < 0:
-			return errors.New("error reading from " + fd.Name() + " : " + er.Error())
+			return errors.New("read error: " + er.Error())
 		case nr == 0: // EOF
 			return nil
 		case nr > 0:
-			if nw, _ := os.Stdout.Write(buf[0:nr]); nw != nr {
-				return errors.New("error reading from " + fd.Name() + " : " + er.Error())
+			if nw, ew := writer.Write(buf[0:nr]); nw != nr {
+				return errors.New("write error: " + ew.Error())
 			}
 		}
 	}
@@ -57,13 +63,13 @@ func main() {
 	flag.Parse()
 	var files []string
 	if flag.NArg() == 0 {
-		files = append(files, "-")
+		files = append(files, stdinPlaceholder)
 	}
 	for i := 0; i < flag.NArg(); i++ {
 		files = append(files, flag.Arg(i))
 	}
 
-	handleError(Cat(files))
+	handleError(Cat(files, os.Stdout))
 }
 
 // handle errors in the cat process

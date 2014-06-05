@@ -6,12 +6,13 @@ Feature: Exercise the cat tool
     Then I should see the content of the file
     And there should be no error prints
     Examples:
-      | file |
-      | resources/001.txt |
+      | file                   |
+      | resources/001.txt      |
+      | resources/test_001.txt |
+      | resources/test_002.txt |
 
   Scenario: read an empty file
     Given an empty file
     When I cat the file
     Then I should see nothing
     And there should be no error prints
-
