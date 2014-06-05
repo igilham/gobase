@@ -1,4 +1,5 @@
 GOPATH=$(shell pwd)
+export GOPATH
 
 TARGETS=basename \
         cat \
@@ -33,6 +34,19 @@ build:
 test:
 	go test $(TARGETS)
 
+# run unit tests with benchmarking enabled
+bench:
+	go test -bench . $(TARGETS)
+
+# fetch the coverage tool
+covcmd:
+	go get code.google.com/p/go.tools/cmd/cover
+
+# run unit tests with coverage analysis enabled
+cov: covcmd
+	go test -cover $(TARGETS)
+
+# install gem dependencies for UAT test
 gems:
 	bundle install
 

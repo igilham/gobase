@@ -7,18 +7,28 @@ import (
 	"os"
 )
 
+const (
+	nbuf = 4096 // buffer size in bytes
+)
+
 // Cat concatenates files.
 // any errors encountered will stop iteration through the list of files.
 func Cat(files []string) error {
 	for _, s := range files {
-		fd, er := os.Open(s)
-		defer fd.Close()
-		if er != nil {
-			return er
+		var fd *os.File
+		var er error
+		if s == "-" {
+			fd = os.Stdin
+		} else {
+			fd, er = os.Open(s)
+			defer fd.Close()
+			if er != nil {
+				return er
+			}
 		}
 		ew := CatFile(fd)
 		if ew != nil {
-			return ew
+			return er
 		}
 	}
 	return nil
@@ -26,8 +36,7 @@ func Cat(files []string) error {
 
 // CatFile reads a single file and writes to os.Stdout.
 func CatFile(fd *os.File) error {
-	const NBUF = 512
-	var buf [NBUF]byte
+	var buf [nbuf]byte
 	for {
 		switch nr, er := fd.Read(buf[:]); true {
 		case nr < 0:
@@ -46,10 +55,10 @@ func CatFile(fd *os.File) error {
 // the newline will be omitted.
 func main() {
 	flag.Parse()
-	if flag.NArg() == 0 {
-		handleError(CatFile(os.Stdin))
-	}
 	var files []string
+	if flag.NArg() == 0 {
+		files = append(files, "-")
+	}
 	for i := 0; i < flag.NArg(); i++ {
 		files = append(files, flag.Arg(i))
 	}

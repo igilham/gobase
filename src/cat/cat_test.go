@@ -3,9 +3,10 @@ package main
 import (
 	"log"
 	"os"
+	"testing"
 )
 
-func ExampleCat_withOneFile() {
+func ExampleCatWithOneFile() {
 	var files = []string{
 		"../../resources/test_001.txt",
 	}
@@ -13,7 +14,7 @@ func ExampleCat_withOneFile() {
 	// Output: hello
 }
 
-func ExampleCat_withTwoFiles() {
+func ExampleCatWithTwoFiles() {
 	var files = []string{
 		"../../resources/test_001.txt",
 		"../../resources/test_002.txt",
@@ -22,7 +23,7 @@ func ExampleCat_withTwoFiles() {
 	// Output: helloworld
 }
 
-func ExampleCatFile_withOneFile() {
+func ExampleCatFileWithOneFile() {
 	fd, err := os.Open("../../resources/test_001.txt")
 	if err != nil {
 		log.Fatal("fail - file not found\n")
@@ -30,4 +31,13 @@ func ExampleCatFile_withOneFile() {
 	defer fd.Close()
 	CatFile(fd)
 	// Output: hello
+}
+
+func BenchmarkCatFileWithOneLargeFile(b *testing.B) {
+	fd, err := os.Open("../../resources/test_cat_large.txt")
+	if err != nil {
+		log.Fatal("fail - file not found\n")
+	}
+	defer fd.Close()
+	CatFile(fd)
 }
