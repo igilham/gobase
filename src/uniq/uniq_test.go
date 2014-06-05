@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 )
 
 func ExampleUniq() {
-	fd, er := os.Open("../../resources/test_005.txt")
+	fd, er := os.Open(
+		filepath.Join("..", "..", "resources", "test_005.txt"))
 	if er != nil {
 		log.Fatalf("%v\n", er)
 	}

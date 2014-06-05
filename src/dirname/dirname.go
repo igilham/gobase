@@ -12,16 +12,16 @@ const (
 	// string representing the current path in the operating system
 	cwd string = "."
 	// file path separator
-	sep = string(os.PathSeparator)
+	separator = string(os.PathSeparator)
 )
 
 // Dirname strips the filename from a directory path.
 func Dirname(s string) string {
-	if s == string(os.PathSeparator) {
+	if s == separator {
 		return s
 	}
-	s = strings.TrimRight(s, string(os.PathSeparator))
-	index := strings.LastIndex(s, string(os.PathSeparator))
+	s = strings.TrimRight(s, separator)
+	index := strings.LastIndex(s, separator)
 	if index == -1 {
 		return cwd
 	}
@@ -31,7 +31,7 @@ func Dirname(s string) string {
 	if len(s) <= 1 {
 		return s
 	}
-	return strings.TrimRight(s, string(os.PathSeparator))
+	return strings.TrimRight(s, separator)
 }
 
 // strip non-directory suffix from filename

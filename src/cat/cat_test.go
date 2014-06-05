@@ -4,12 +4,14 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
 	"testing"
 )
 
 func ExampleCatWithOneFile() {
 	var files = []string{
-		"../../resources/test_001.txt",
+
+		filepath.Join("..", "..", "resources", "test_001.txt"),
 	}
 	Cat(files, os.Stdout)
 	// Output: hello
@@ -17,15 +19,15 @@ func ExampleCatWithOneFile() {
 
 func ExampleCatWithTwoFiles() {
 	var files = []string{
-		"../../resources/test_001.txt",
-		"../../resources/test_002.txt",
+		filepath.Join("..", "..", "resources", "test_001.txt"),
+		filepath.Join("..", "..", "resources", "test_002.txt"),
 	}
 	Cat(files, os.Stdout)
 	// Output: helloworld
 }
 
 func ExampleCatFileWithOneFile() {
-	fd, err := os.Open("../../resources/test_001.txt")
+	fd, err := os.Open(filepath.Join("..", "..", "resources", "test_001.txt"))
 	if err != nil {
 		log.Fatal("fail - file not found\n")
 	}
@@ -36,7 +38,7 @@ func ExampleCatFileWithOneFile() {
 
 func BenchmarkCatFile001(b *testing.B) {
 	for n:= 0; n < b.N; n++ {
-		fd, err := os.Open("../../resources/cat_benchmark.txt")
+		fd, err := os.Open(filepath.Join("..", "..", "resources", "cat_benchmark.txt"))
 		if err != nil {
 			log.Fatal("fail - file not found: " + err.Error())
 		}

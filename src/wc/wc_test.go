@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"path/filepath"
 	"testing"
 )
 
@@ -11,9 +12,9 @@ type wcTest struct {
 }
 
 var wcCases = []wcTest{
-	wcTest{"../../resources/test_001.txt", 5, 5, 0, 0},
-	wcTest{"../../resources/test_002.txt", 5, 5, 0, 0},
-	wcTest{"../../resources/test_003.txt", 44, 44, 8, 6},
+	wcTest{filepath.Join("..", "..", "resources", "test_001.txt"), 5, 5, 0, 0},
+	wcTest{filepath.Join("..", "..", "resources", "test_002.txt"), 5, 5, 0, 0},
+	wcTest{filepath.Join("..", "..", "resources", "test_003.txt"), 44, 44, 8, 6},
 }
 
 func TestWc(t *testing.T) {

@@ -2,13 +2,14 @@ package main
 
 import (
 	"os"
+	"path/filepath"
 	"testing"
 	"time"
 )
 
 var sleepTime, _ = time.ParseDuration("1000ms")
 
-var path string = os.TempDir() + "/touch_test.dat"
+var path string = filepath.Join(os.TempDir(), "touch_test.dat")
 
 // FileExists returns true if path points to an existing file, and false
 // otherwise.
