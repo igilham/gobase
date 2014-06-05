@@ -1,6 +1,17 @@
 Feature: exercise basename application
 
-  Scenario: basename prints the basename of its argument
-    When I run basename with a file argument
-    Then it should print the basename of the argument
-
+  Scenario Outline: basename prints the basename of its argument
+    When I run basename with an <argument>
+    Then it should print the <basename> of the argument
+    Examples:
+      | argument   | basename |
+      |          | .        |
+      | .        | .        |
+      | ..       | ..       |
+      | ./a      | a        |
+      | ./a/b    | b        |
+      | //       | /        |
+      | a/       | a        |
+      | a//      | a        |
+      | a//b     | b        |
+      | a///b    | b        |

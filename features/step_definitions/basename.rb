@@ -1,10 +1,11 @@
 require 'open3'
 
-When(/^I run basename with a file argument$/) do
-  @input = 'src/basename/basename.go'
-  @stdin, @stdout, @stderr = Open3.popen3("bin/basename \"#{@input}\"")
+When(/^I run basename with an ([^ ]*)$/) do | argument |
+  @argument = argument
+  @stdin, @stdout, @stderr = Open3.popen3("bin/basename \"#{@argument}\"")
 end
 
-Then(/^it should print the basename of the argument$/) do
-  expect(@stdout.read).to eq("basename.go\n")
+Then(/^it should print the ([^ ]+) of the argument$/) do | basename |
+  @basename = basename
+  expect(@stdout.read).to eq("#{@basename}\n")
 end
