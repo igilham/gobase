@@ -1,18 +1,29 @@
 Feature: Exercise the cat tool
 
-  Scenario Outline: cat can read a file
-    Given the input <file>
-    When I cat the file
-    Then I should see the content of the file
-    And there should be no error prints
-    Examples:
-      | file                   |
-      | resources/001.txt      |
-      | resources/test_001.txt |
-      | resources/test_002.txt |
-
   Scenario: read an empty file
-    Given an empty file
-    When I cat the file
-    Then I should see nothing
-    And there should be no error prints
+    Given an empty file named "foo"
+    When I run `cat foo`
+    Then the stdout should not contain anything
+    And the stderr should not contain anything
+
+  Scenario: read a simple file
+    Given a file named "test.txt" with:
+      """
+      hello world
+      """
+    When I run `cat test.txt`
+    Then the stdout should contain exactly "hello world"
+    And the stderr should not contain anything
+
+    Scenario: concatenate two files
+      Given a file named "foo" with:
+        """
+        foo
+        """
+      And a file named "bar" with:
+        """
+        bar
+        """
+      When I run `cat foo bar`
+      Then the stdout should contain exactly "foobar"
+      And the stderr should not contain anything
