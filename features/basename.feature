@@ -1,11 +1,10 @@
 Feature: exercise basename application
 
   Scenario Outline: basename prints the basename of its argument
-    When I run basename with an <argument>
-    Then basename should print the <basename> of the argument
+    When I run `basename <argument>`
+    Then the stdout should contain exactly "<basename>\n"
     Examples:
       | argument | basename |
-      |          | .        |
       | .        | .        |
       | ..       | ..       |
       | ./a      | a        |

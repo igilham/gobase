@@ -58,4 +58,3 @@ Applications not yet implemented
 Things to try out
 =================
 
-finish implementing Aruba/Cucumber for simplifying black-box testing
