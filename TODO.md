@@ -1,6 +1,14 @@
 Applications not yet implemented
 ================================
 
+* sed
+* patch
+* ed
+* awk
+* bc/dc
+* fmt
+* install
+* find (bare minimum)
 * cal
 * chgrp
 * chmod
