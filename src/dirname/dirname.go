@@ -44,7 +44,7 @@ func Dirname(s string) string {
 func main() {
 	flag.Parse()
 	if flag.NArg() == 0 || flag.NArg() > 1 {
-		fmt.Fprintf(os.Stderr, "usage: dirname path")
+		fmt.Fprintln(os.Stderr, "usage: dirname path")
 		os.Exit(1)
 	} else {
 		fmt.Println(Dirname(flag.Arg(0)))
