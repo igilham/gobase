@@ -70,7 +70,7 @@ vet: vetcmd
 	go vet $(TARGETS)
 
 # install binaries
-install: test
+install: test fmt fix vet
 	go install $(TARGETS)
 
 all: install uat
