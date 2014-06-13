@@ -61,7 +61,6 @@ Applications not yet implemented
 * tty
 * uname
 * unexpand
-* uniq
 * unlink
 * uudecode
 * uuencode
