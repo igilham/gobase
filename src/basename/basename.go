@@ -3,18 +3,17 @@ package main
 import (
 	"flag"
 	"fmt"
-	"log"
+	"os"
 	"path/filepath"
 )
 
 // strip directory from filenames
 func main() {
 	flag.Parse()
-	switch {
-	case flag.NArg() == 0:
-		log.Fatal("basename: not enough arguments")
-	case flag.NArg() > 1:
-		log.Fatal("basename: too many arguments")
+	if flag.NArg() == 0 || flag.NArg() > 1 {
+		fmt.Fprintln(os.Stderr, "usage: basename string")
+		os.Exit(1)
+	} else {
+		fmt.Println(filepath.Base(flag.Arg(0)))
 	}
-	fmt.Println(filepath.Base(flag.Arg(0)))
 }
