@@ -15,15 +15,15 @@ Feature: Exercise the cat tool
     Then the stdout should contain exactly "hello world"
     And the stderr should not contain anything
 
-    Scenario: concatenate two files
-      Given a file named "foo" with:
-        """
-        foo
-        """
-      And a file named "bar" with:
-        """
-        bar
-        """
-      When I run `cat foo bar`
-      Then the stdout should contain exactly "foobar"
-      And the stderr should not contain anything
+  Scenario: concatenate two files
+    Given a file named "foo" with:
+      """
+      foo
+      """
+    And a file named "bar" with:
+      """
+      bar
+      """
+    When I run `cat foo bar`
+    Then the stdout should contain exactly "foobar"
+    And the stderr should not contain anything

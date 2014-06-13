@@ -2,6 +2,7 @@ Notes
 =====
 
 * Compare GNU wc and FreeBSD/Darwin wc to mine and decide which measures to use
+* Add more UAT tests for black-box command line tests
 
 Applications not yet implemented
 ================================
