@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"flag"
 	"fmt"
-	"log"
 	"os"
 	"sort"
 )
@@ -43,18 +42,19 @@ func main() {
 	if flag.NArg() == 0 {
 		lines, er = GetLines(os.Stdin, 0)
 		if er != nil {
-			fmt.Fprintf(os.Stderr, "sort: %v", er)
+			fmt.Fprintf(os.Stderr, "sort: %v\n", er)
 		}
 	} else {
 		for i := 0; i < flag.NArg(); i++ {
 			file, err := os.Open(flag.Arg(i))
 			if err != nil {
-				log.Fatalf("sort: cannot open file ", flag.Arg(i))
+				fmt.Fprintf(os.Stderr, "sort: cannot open file %s\n", flag.Arg(i))
+				os.Exit(1)
 			}
 			defer file.Close()
 			var ew error
 			if lines, ew = GetLines(file, 0); ew != nil {
-				fmt.Fprintf(os.Stderr, "sort: %v", ew)
+				fmt.Fprintf(os.Stderr, "sort: %v\n", ew)
 			}
 		}
 	}

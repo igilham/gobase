@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"flag"
 	"fmt"
-	"log"
 	"os"
 )
 
@@ -41,7 +40,8 @@ func main() {
 	} else {
 		for i, arg := range flag.Args() {
 			if f, err := os.Open(arg); err != nil {
-				log.Fatalf("head: cannot open file %s\n", arg)
+				fmt.Fprintf(os.Stderr, "head: cannot open file %s\n", arg)
+				os.Exit(1)
 			} else {
 				defer f.Close()
 				handle(Head(f, *lines))

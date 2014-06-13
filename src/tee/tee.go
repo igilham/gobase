@@ -4,7 +4,6 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"log"
 	"os"
 )
 
@@ -36,10 +35,12 @@ func main() {
 					var nerr error
 					Files[i], nerr = os.Create(flag.Arg(i - 1))
 					if nerr != nil {
-						log.Fatal(nerr)
+						fmt.Fprintf(os.Stderr, "tee: %v\n", nerr)
+						os.Exit(1)
 					}
 				} else {
-					log.Fatal(err)
+					fmt.Fprintf(os.Stderr, "tee: %v\n", err)
+					os.Exit(1)
 				}
 			}
 		} else {
@@ -47,9 +48,9 @@ func main() {
 		}
 		if err != nil {
 			fmt.Fprintf(os.Stderr,
-				"tee: cannot create file - %s - %s\n",
+				"tee: cannot create file - %s - %v\n",
 				flag.Arg(i-1),
-				err.Error())
+				err)
 		}
 		Channels[i] = make(chan []byte, CHBUF) // Makes the channel
 		go writeToFile(Files[i], Channels[i])  // Starts the writers

@@ -5,7 +5,6 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"log"
 	"os"
 	"unicode/utf8"
 )
@@ -28,7 +27,7 @@ var (
 	countWords = flag.Bool("w", false, "count words")
 	countBytes = flag.Bool("c", false, "count bytes")
 	countChars = flag.Bool("m", false, "count characters")
-	
+
 	// slice of characters representative of whitespace
 	whiteSpaceChars = []byte{9, 10, 11, 12, 13, 32}
 )
@@ -85,7 +84,8 @@ func main() {
 	for i := 0; i < flag.NArg(); i++ {
 		fd, er := os.Open(flag.Arg(i))
 		if er != nil {
-			log.Fatalf("wc: %s\n", er)
+			fmt.Fprintf(os.Stderr, "wc: %v\n", er)
+			os.Exit(1)
 		}
 		defer fd.Close()
 		wc(fd)
@@ -95,7 +95,8 @@ func main() {
 func wc(fd *os.File) {
 	wc, ew := Wc(fd)
 	if ew != nil {
-		fmt.Fprintln(os.Stderr, "wc: ", ew)
+		fmt.Fprintf(os.Stderr, "wc: %v\n", ew)
+		os.Exit(1)
 	} else {
 		output(wc, fd.Name())
 	}

@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"log"
 	"os"
 	"time"
 )
@@ -24,12 +23,13 @@ func Touch(path string) error {
 func main() {
 	flag.Parse()
 	if flag.NArg() == 0 {
-		log.Fatal("touch: missing file operand")
+		fmt.Fprintln(os.Stderr, "usage: touch path...")
+		os.Exit(1)
 	}
 	for i := 0; i < flag.NArg(); i++ {
 		er := Touch(flag.Arg(i))
 		if er != nil {
-			fmt.Fprintln(os.Stderr, "touch: cannot create file ", flag.Arg(i))
+			fmt.Fprintf(os.Stderr, "touch: cannot create file %s\n", flag.Arg(i))
 		}
 	}
 }

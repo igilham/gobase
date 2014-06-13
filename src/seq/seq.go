@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"log"
+	"os"
 	"strconv"
 )
 
@@ -89,5 +89,6 @@ func parseFloat(s string) float64 {
 }
 
 func usageExit() {
-	log.Fatalf("usage:\nseq [-f FORMAT] end\nseq [-f FORMAT] start end\nseq [-f FORMAT] start step end")
+	fmt.Fprintln(os.Stderr, "usage: seq [-f FORMAT] end\n       seq [-f FORMAT] start end\n       seq [-f FORMAT] start step end")
+	os.Exit(1)
 }

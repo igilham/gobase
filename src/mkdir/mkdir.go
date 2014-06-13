@@ -15,7 +15,7 @@ func main() {
 		m := os.FileMode(*mode)
 		err := os.Mkdir(flag.Arg(i), m)
 		if err != nil {
-			fmt.Fprintln(os.Stderr, "mkdir: ", err)
+			fmt.Fprintf(os.Stderr, "mkdir: %v\n", err)
 		}
 	}
 }

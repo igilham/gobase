@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"flag"
 	"fmt"
-	"log"
 	"os"
 )
 
@@ -50,6 +49,7 @@ func main() {
 
 func handleError(er error) {
 	if er != nil {
-		log.Fatalf("uniq: %v", er)
+		fmt.Fprintln(os.Stderr, "uniq: %v", er)
+		os.Exit(1)
 	}
 }

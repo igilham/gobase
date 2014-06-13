@@ -12,7 +12,7 @@ func main() {
 	flag.Parse()
 	user, error := user.Current()
 	if error != nil {
-		fmt.Fprintln(os.Stderr, "whoami: ", error)
+		fmt.Fprintf(os.Stderr, "whoami: %v\n", error)
 		os.Exit(1)
 	}
 	fmt.Println(user.Username)

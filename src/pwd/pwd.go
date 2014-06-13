@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 )
 
@@ -10,7 +9,8 @@ import (
 func main() {
 	wd, err := os.Getwd()
 	if err != nil {
-		log.Fatalf("pwd: %v", err)
+		fmt.Fprintf(os.Stderr, "pwd: %v\n", err)
+		os.Exit(1)
 	} else {
 		fmt.Println(wd)
 	}
