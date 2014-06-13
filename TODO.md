@@ -1,3 +1,8 @@
+Notes
+=====
+
+* Compare GNU wc and FreeBSD/Darwin wc to mine and decide which measures to use
+
 Applications not yet implemented
 ================================
 
@@ -29,7 +34,6 @@ Applications not yet implemented
 * kill
 * ln
 * md5sum
-* mkdir
 * mkfifo
 * mktemp
 * mv
@@ -65,4 +69,3 @@ Applications not yet implemented
 
 Things to try out
 =================
-
