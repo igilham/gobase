@@ -37,7 +37,7 @@ func ExampleCatFileWithOneFile() {
 }
 
 func BenchmarkCatFile001(b *testing.B) {
-	for n:= 0; n < b.N; n++ {
+	for n := 0; n < b.N; n++ {
 		fd, err := os.Open(filepath.Join("..", "..", "resources", "cat_benchmark.txt"))
 		if err != nil {
 			log.Fatal("fail - file not found: " + err.Error())

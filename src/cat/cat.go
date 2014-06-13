@@ -11,7 +11,7 @@ import (
 const (
 	// buffer size in bytes
 	// benchmarking has shown that 4kB is a good balance
-	nbuf = 1024 * 4
+	nbuf             = 1024 * 4
 	stdinPlaceholder = "-"
 )
 
@@ -75,6 +75,6 @@ func main() {
 // handle errors in the cat process
 func handleError(er error) {
 	if er != nil {
-		fmt.Fprintln(os.Stderr, "cat: %v", er)
+		fmt.Fprintf(os.Stderr, "cat: %v\n", er)
 	}
 }

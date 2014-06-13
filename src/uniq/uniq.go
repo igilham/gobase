@@ -49,7 +49,7 @@ func main() {
 
 func handleError(er error) {
 	if er != nil {
-		fmt.Fprintln(os.Stderr, "uniq: %v", er)
+		fmt.Fprintf(os.Stderr, "uniq: %v\n", er)
 		os.Exit(1)
 	}
 }

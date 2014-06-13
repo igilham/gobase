@@ -42,7 +42,6 @@ func Seq(start, step, end float64, format string) []float64 {
 	return out
 }
 
-
 // seq prints a sequence of numbers
 func main() {
 	flag.Parse()

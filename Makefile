@@ -66,7 +66,7 @@ fix:
 vetcmd:
 	go get code.google.com/p/go.tools/cmd/vet
 
-vet: vetdcmd
+vet: vetcmd
 	go vet $(TARGETS)
 
 # install binaries
