@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"log"
 	"os"
 	"strings"
 )
@@ -44,11 +43,10 @@ func Dirname(s string) string {
 // strip non-directory suffix from filename
 func main() {
 	flag.Parse()
-	switch {
-	case flag.NArg() == 0:
-		log.Fatalf("dirname: not enough arguments")
-	case flag.NArg() > 1:
-		log.Fatalf("dirname: too many arguments")
+	if flag.NArg() == 0 || flag.NArg() > 1 {
+		fmt.Fprintf(os.Stderr, "usage: dirname path")
+		os.Exit(1)
+	} else {
+		fmt.Println(Dirname(flag.Arg(0)))
 	}
-	fmt.Println(Dirname(flag.Arg(0)))
 }

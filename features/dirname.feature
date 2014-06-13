@@ -3,7 +3,7 @@ Feature: exercise dirname application
   Scenario: run dirname with no arguments
     When I run `dirname`
     Then the stdout should not contain anything
-    And the stderr should contain "not enough arguments"
+    And the stderr should contain "usage: dirname path"
 
   Scenario Outline: dirname prints the dirname of its argument
     When I run `dirname <argument>`
