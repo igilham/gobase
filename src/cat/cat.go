@@ -3,8 +3,8 @@ package main
 import (
 	"errors"
 	"flag"
+	"fmt"
 	"io"
-	"log"
 	"os"
 )
 
@@ -75,6 +75,6 @@ func main() {
 // handle errors in the cat process
 func handleError(er error) {
 	if er != nil {
-		log.Fatalf("cat: %v", er)
+		fmt.Fprintln(os.Stderr, "cat: %v", er)
 	}
 }
